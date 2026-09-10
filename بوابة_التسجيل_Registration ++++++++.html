@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة تسجيل واعتماد الفرق ومحفظة المشروع التقنية (TPP) | 2026 - 2027</title>
+  <style>
+    :root {
+      --jordan-red: #8B0000;
+      --jordan-red-dark: #600000;
+      --jordan-green: #006400;
+      --jordan-gold: #D4AF37;
+      --tech-green: #10B981;
+      --tech-green-dark: #059669;
+      --dark-slate: #0F172A;
+      --navy: #1E293B;
+      --slate-muted: #64748B;
+      --light-bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #CBD5E1;
+      --border-focus: #10B981;
+      --locked-bg: #F1F5F9;
+      
+      /* توحيد انحناء الكبسولة الصارم */
+      --pill-radius: 50px;
+      --card-radius: 24px;
+    }
+
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background-color: var(--light-bg);
+      color: var(--dark-slate);
+      margin: 0;
+      padding: 25px 12px;
+      line-height: 1.6;
+    }
+
+    /* الحاوية المركزية الفاخرة */
+    .master-container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      border-top: 6px solid var(--jordan-red);
+    }
+
+    /* الترويسة الرسمية */
+    .header-branding {
+      padding: 22px 28px;
+      background: #FFFFFF;
+      border-bottom: 2px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .branding-right { display: flex; align-items: center; gap: 15px; }
+    .coat-of-arms { width: 56px; height: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); }
+    .branding-titles h2 { margin: 0; font-size: 16px; color: var(--dark-slate); font-weight: 800; }
+    .branding-titles .ministry { margin: 2px 0 0 0; font-size: 13px; color: var(--jordan-red); font-weight: bold; }
+    .branding-titles .state { font-size: 11px; color: var(--slate-muted); }
+
+    /* ساعة الأردن والعلم الدقيق بالنجمة السباعية */
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      padding: 8px 18px;
+      border-radius: var(--pill-radius);
+      border: 1px solid var(--border);
+    }
+    .jordan-flag-svg {
+      width: 48px;
+      height: 24px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .clock-badge { display: flex; flex-direction: column; align-items: flex-start; }
+    .clock-title { font-size: 10px; color: var(--slate-muted); font-weight: bold; }
+    .clock-time { font-family: monospace; font-size: 15px; font-weight: bold; color: var(--jordan-red); letter-spacing: 1px; }
+
+    /* عنوان البوابة */
+    .portal-title-bar {
+      text-align: center;
+      padding: 18px 20px;
+      background: linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%);
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .portal-title-bar h1 { margin: 0; font-size: 20px; color: var(--dark-slate); font-weight: 800; }
+    .portal-title-bar .sub-badge {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--jordan-red);
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      padding: 3px 14px;
+      border-radius: var(--pill-radius);
+      font-weight: bold;
+    }
+
+    /* شريط الخطوات المنحني بالكامل */
+    .stepper-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+      overflow-x: auto;
+    }
+    .step-pill {
+      flex: 1;
+      min-width: 140px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--pill-radius);
+      padding: 9px 15px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--slate-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+    .step-pill.active {
+      background: var(--tech-green-dark);
+      color: white;
+      border-color: var(--tech-green-dark);
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25);
+    }
+    .step-pill.completed {
+      background: #ECFDF5;
+      color: #065F46;
+      border-color: #6EE7B7;
+    }
+
+    .form-body { padding: 30px 25px; }
+    .pane-content { display: none; }
+    .pane-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 7px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--dark-slate);
+    }
+    .label-icon {
+      width: 15px;
+      height: 15px;
+      stroke: var(--dark-slate);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* تطبيق الانحناء الدائري الكامل لكافة الخانات والقوائم المنسدلة */
+    .form-group { margin-bottom: 16px; }
+    
+    input[type="text"], 
+    input[type="tel"], 
+    input[type="email"], 
+    input[type="url"], 
+    input[type="number"], 
+    input[type="password"] {
+      width: 100% !important;
+      padding: 12px 20px !important;
+      border: 1.5px solid var(--border) !important;
+      border-radius: var(--pill-radius) !important;
+      font-size: 14px !important;
+      transition: all 0.25s ease !important;
+      background: white !important;
+      color: var(--dark-slate) !important;
+      outline: none !important;
+    }
+
+    select {
+      width: 100% !important;
+      padding: 12px 20px 12px 42px !important;
+      border: 1.5px solid var(--border) !important;
+      border-radius: var(--pill-radius) !important;
+      font-size: 14px !important;
+      transition: all 0.25s ease !important;
+      background-color: white !important;
+      color: var(--dark-slate) !important;
+      outline: none !important;
+      cursor: pointer !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: left 16px center !important;
+      background-size: 14px !important;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    }
+
+    .field-locked {
+      background: var(--locked-bg) !important;
+      font-weight: bold !important;
+      color: #334155 !important;
+      cursor: not-allowed !important;
+      border-color: #CBD5E1 !important;
+    }
+
+    /* خانة الهاتف المنحنية المتكاملة */
+    .phone-pill-box {
+      display: flex !important;
+      direction: ltr !important;
+      border: 1.5px solid var(--border) !important;
+      border-radius: var(--pill-radius) !important;
+      overflow: hidden !important;
+      background: white !important;
+      transition: all 0.25s ease !important;
+    }
+    .phone-pill-box:focus-within {
+      border-color: var(--border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    }
+    .phone-pill-prefix {
+      background: #F8FAFC !important;
+      padding: 10px 14px !important;
+      border-right: 1.5px solid var(--border) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      color: var(--dark-slate) !important;
+    }
+    .phone-pill-box input {
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 10px 16px !important;
+      width: 100% !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.5px !important;
+      outline: none !important;
+    }
+
+    /* صفوف الروابط المنحنية */
+    .multi-item-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .multi-item-row select {
+      width: 140px !important;
+      border-radius: var(--pill-radius) !important;
+    }
+    .multi-item-row input {
+      border-radius: var(--pill-radius) !important;
+    }
+
+    /* التنبيه البصري الفائق (Red Glow & Shake) للخانة غير المكتملة */
+    @keyframes errorShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    .field-has-error {
+      border-color: #DC2626 !important;
+      background-color: #FEF2F2 !important;
+      box-shadow: 0 0 0 3.5px rgba(220, 38, 38, 0.25) !important;
+      animation: errorShake 0.4s ease-in-out !important;
+    }
+
+    /* أزرار التبديل الدائرية للجنسية */
+    .segmented-control {
+      display: inline-flex;
+      border: 1.5px solid var(--border);
+      border-radius: var(--pill-radius);
+      overflow: hidden;
+      background: #F1F5F9;
+      padding: 2px;
+    }
+    .segmented-btn {
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: var(--pill-radius) !important;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--slate-muted);
+      transition: all 0.2s;
+    }
+    .segmented-btn.active {
+      background: white;
+      color: var(--jordan-red);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    /* شرائح أرقام الهواتف والروابط */
+    .phone-chips-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .phone-chip {
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      color: #166534;
+      padding: 7px 16px;
+      border-radius: var(--pill-radius);
+      font-size: 13px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      direction: ltr;
+    }
+    .phone-chip .del-btn { color: #EF4444; cursor: pointer; font-weight: bold; font-size: 14px; margin-left: 4px; }
+
+    /* بطاقات الطلاب المنحنية */
+    .member-card {
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 22px;
+      margin-bottom: 22px;
+      background: #FAFAFA;
+    }
+    .member-card.m1 { border-top: 5px solid var(--jordan-red); }
+    .member-card.m2 { border-top: 5px solid var(--tech-green-dark); }
+    .member-card.m3 { border-top: 5px solid var(--jordan-gold); }
+
+    /* الأزرار المنحنية بالكامل */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 20px;
+    }
+    .btn {
+      padding: 12px 28px !important;
+      border-radius: var(--pill-radius) !important;
+      border: none;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-next { background: var(--tech-green-dark); color: white; }
+    .btn-next:hover { background: var(--jordan-green); }
+    .btn-prev { background: #E2E8F0; color: var(--dark-slate); }
+    .btn-lookup { background: #2563EB; color: white; padding: 11px 26px !important; }
+    .btn-submit { background: var(--jordan-green); color: white; font-size: 15px; padding: 13px 34px !important; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .toast-alert {
+      padding: 12px 18px;
+      border-radius: var(--pill-radius);
+      margin-bottom: 20px;
+      font-size: 13px;
+      display: none;
+    }
+    .toast-err { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
+    .name-hint { font-size: 12px; color: #D97706; margin-top: 4px; display: none; padding-right: 12px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="master-container">
+  
+  <!-- الترويسة الرسمية -->
+  <div class="header-branding">
+    <div class="branding-right">
+      <img src="https://imglink.cc/cdn/-bfPMnd0rv.png" alt="شعار المملكة الأردنية الهاشمية" class="coat-of-arms">
+      <div class="branding-titles">
+        <h2>المملكة الأردنية الهاشمية</h2>
+        <div class="ministry">وزارة التربية والتعليم وتنمية الموارد البشرية</div>
+        <div class="state">البطولة الوطنية للابتكار والروبوت 2026 - 2027</div>
+      </div>
+    </div>
+
+    <!-- العلم الأردني الرسمي وساعة الأردن الحية -->
+    <div class="header-left">
+      <svg class="jordan-flag-svg" viewBox="0 0 1200 600">
+        <rect width="1200" height="200" fill="#000000"/>
+        <rect y="200" width="1200" height="200" fill="#FFFFFF"/>
+        <rect y="400" width="1200" height="200" fill="#007A3D"/>
+        <polygon points="0,0 600,300 0,600" fill="#CE1126"/>
+        <polygon points="
+          200.0,240.0 212.1,274.8 246.9,262.6 230.1,294.6 258.5,317.9 
+          222.0,323.0 226.7,359.5 200.0,334.4 173.3,359.5 178.0,323.0 
+          141.5,317.9 169.9,294.6 153.1,262.6 187.9,274.8" fill="#FFFFFF"/>
+      </svg>
+      
+      <div class="clock-badge">
+        <span class="clock-title">الساعة الآن</span>
+        <span class="clock-time" id="liveJordanClock">--:--:--</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- عنوان البوابة -->
+  <div class="portal-title-bar">
+    <h1>بوابة تسجيل واعتماد الفرق ومحفظة المشروع التقنية (TPP)</h1>
+    <div class="sub-badge">البطولة الوطنية للابتكار والروبوت 2026 - 2027</div>
+  </div>
+
+  <!-- شريط الخطوات المنحني بالكامل -->
+  <div class="stepper-bar">
+    <div class="step-pill active" id="st_pill_1">1. المؤسسة والإدارة</div>
+    <div class="step-pill" id="st_pill_2">2. المشرف والتواصل</div>
+    <div class="step-pill" id="st_pill_3">3. الفريق والمسار</div>
+    <div class="step-pill" id="st_pill_4">4. أعضاء الفريق</div>
+    <div class="step-pill" id="st_pill_5">5. الاعتماد والتسليم</div>
+  </div>
+
+  <div class="form-body">
+    <div id="toast_msg" class="toast-alert toast-err"></div>
+
+    <form id="tppRegisterForm" onsubmit="return false;">
+      
+      <!-- ========================================================================= -->
+      <!-- الخطوة 1: المؤسسة والإدارة المدرسية -->
+      <!-- ========================================================================= -->
+      <div class="pane-content active" id="pane_1">
+        
+        <div class="form-group">
+          <label class="field-label">الرقم الوطني للمدرسة (رمز المؤسسة) *</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="school_code" placeholder="أدخل الرقم الوطني للمدرسة" inputmode="numeric" oninput="clearError(this); sanitizeNumbersOnly(this)" style="font-weight: bold; font-size: 15px;">
+            <button type="button" class="btn btn-lookup" onclick="lookupSchoolStrict()">جلب البيانات</button>
+          </div>
+          <div id="lookup_status_text" style="font-size: 12px; margin-top: 5px; font-weight: bold; padding-right: 12px;"></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group"><label class="field-label">اسم المدرسة الرسمي * (مقفل)</label><input type="text" id="school_name" class="field-locked" readonly placeholder="سيتم جلبه وتثبيته تلقائياً..."></div>
+          <div class="form-group"><label class="field-label">نوع المدرسة / التبعية (مقفل)</label><input type="text" id="school_type" class="field-locked" readonly></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group"><label class="field-label">المحافظة (مقفل)</label><input type="text" id="governorate" class="field-locked" readonly></div>
+          <div class="form-group"><label class="field-label">المديرية (مقفل)</label><input type="text" id="directorate_name" class="field-locked" readonly></div>
+          <div class="form-group"><label class="field-label">الرمز الوزاري (مقفل)</label><input type="text" id="directorate_code" class="field-locked" readonly></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group"><label class="field-label">الإقليم (مقفل)</label><input type="text" id="region" class="field-locked" readonly></div>
+          <div class="form-group"><label class="field-label">اللواء / المنطقة (مقفل)</label><input type="text" id="district" class="field-locked" readonly></div>
+          <div class="form-group"><label class="field-label">جنس المؤسسة (مقفل)</label><input type="text" id="school_gender" class="field-locked" readonly></div>
+        </div>
+
+        <!-- أرقام هواتف المدرسة (رقمين كحد أقصى) -->
+        <div style="border-top: 1px dashed var(--border); padding-top: 15px; margin-top: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="field-label">
+              <svg class="label-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              أرقام هواتف المدرسة المعتمدة * (رقمين كحد أقصى):
+            </label>
+            <div style="display: flex; gap: 6px;">
+              <div class="phone-pill-box" id="box_new_school_phone" style="width: 220px;">
+                <div class="phone-pill-prefix">
+                  <svg class="jordan-flag-svg" style="width: 20px; height: 11px;" viewBox="0 0 1200 600"><rect width="1200" height="200" fill="#000"/><rect y="200" width="1200" height="200" fill="#FFF"/><rect y="400" width="1200" height="200" fill="#007A3D"/><polygon points="0,0 600,300 0,600" fill="#CE1126"/><polygon points="200,240 212,274 246,262 230,294 258,317 222,323 226,359 200,334 173,359 178,323 141,317 169,294 153,262 187,274" fill="#FFF"/></svg>
+                  <span>+962</span>
+                </div>
+                <input type="tel" id="new_school_phone_input" inputmode="numeric" placeholder="خلوي أو أرضي" oninput="clearError('box_new_school_phone'); sanitizePhoneLeadingZero(this)">
+              </div>
+              <button type="button" class="btn" style="background:var(--tech-green-dark); color:white; padding:10px 18px !important;" onclick="addSchoolPhoneChip()">+ إضافة</button>
+            </div>
+          </div>
+          <div class="phone-chips-container" id="school_phones_chips"></div>
+        </div>
+
+        <!-- روابط المدرسة (حتى 5 روابط) -->
+        <div style="margin-top: 15px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="field-label">روابط المدرسة ومواقع التواصل * (حتى 5 روابط):</label>
+            <div style="display: flex; gap: 6px;">
+              <select id="new_school_link_type" style="width: 140px !important;">
+                <option value="الموقع الإلكتروني">الموقع</option>
+                <option value="Facebook">فيسبوك</option>
+                <option value="Instagram">إنستغرام</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+              <input type="url" id="new_school_link_url" placeholder="https://..." oninput="clearError(this)" style="width: 200px !important; direction: ltr;">
+              <button type="button" class="btn" style="background:var(--tech-green-dark); color:white; padding:10px 18px !important;" onclick="addSchoolLinkChip()">+ إضافة</button>
+            </div>
+          </div>
+          <div class="phone-chips-container" id="school_links_chips"></div>
+        </div>
+
+        <!-- مدير المدرسة -->
+        <div style="background: #F8FAFC; border: 1.5px solid var(--border); border-radius: var(--card-radius); padding: 20px; margin-top: 20px;">
+          <strong style="color: var(--jordan-red); font-size: 14px; display: block; margin-bottom: 12px;">بيانات مدير / مديرة المدرسة:</strong>
+          
+          <label class="field-label">
+            <svg class="label-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            الاسم الرباعي للمدير *
+          </label>
+          <div class="grid-4">
+            <input type="text" id="principal_fn" placeholder="الاسم الأول" oninput="clearError(this)" required>
+            <input type="text" id="principal_sn" placeholder="اسم الأب" oninput="clearError(this)" required>
+            <input type="text" id="principal_tn" placeholder="اسم الجد" oninput="clearError(this)" required>
+            <input type="text" id="principal_ln" placeholder="اسم العائلة" oninput="clearError(this)" required>
+          </div>
+          <div class="name-hint" id="principal_name_hint">تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.</div>
+
+          <div class="form-group" style="margin-top: 15px; margin-bottom: 0;">
+            <label class="field-label">
+              <svg class="label-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              رقم هاتف مدير المدرسة *
+            </label>
+            <div class="phone-pill-box" id="box_principal_phone">
+              <div class="phone-pill-prefix">
+                <svg class="jordan-flag-svg" style="width: 20px; height: 11px;" viewBox="0 0 1200 600"><rect width="1200" height="200" fill="#000"/><rect y="200" width="1200" height="200" fill="#FFF"/><rect y="400" width="1200" height="200" fill="#007A3D"/><polygon points="0,0 600,300 0,600" fill="#CE1126"/><polygon points="200,240 212,274 246,262 230,294 258,317 222,323 226,359 200,334 173,359 178,323 141,317 169,294 153,262 187,274" fill="#FFF"/></svg>
+                <span>+962</span>
+              </div>
+              <input type="tel" id="principal_phone" inputmode="numeric" placeholder="7XXXXXXXX" oninput="clearError('box_principal_phone'); sanitizeJordanPhoneInput(this)" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <div></div>
+          <button type="button" class="btn btn-next" id="btn_step_1_next" disabled onclick="validateAndGoStep(1, 2)">
+            التالي: المشرف والتواصل ←
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- الخطوة 2: المشرف والتواصل -->
+      <!-- ========================================================================= -->
+      <div class="pane-content" id="pane_2">
+        
+        <label class="field-label">
+          <svg class="label-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          الاسم الرباعي للمشرف الأكاديمي *
+        </label>
+        <div class="grid-4" style="margin-bottom: 4px;">
+          <input type="text" id="sup_fn" placeholder="الاسم الأول" oninput="clearError(this)" required>
+          <input type="text" id="sup_sn" placeholder="اسم الأب" oninput="clearError(this)" required>
+          <input type="text" id="sup_tn" placeholder="اسم الجد" oninput="clearError(this)" required>
+          <input type="text" id="sup_ln" placeholder="اسم العائلة" oninput="clearError(this)" required>
+        </div>
+        <div class="name-hint" id="sup_name_hint" style="margin-bottom: 12px;">تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.</div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label class="field-label" id="sup_nid_label" style="margin:0;">الرقم الوطني للمشرف (10 أرقام) *</label>
+              <div class="segmented-control">
+                <button type="button" class="segmented-btn active" id="btn_sup_jor" onclick="setPersonNidMode('sup', false)">أردني</button>
+                <button type="button" class="segmented-btn" id="btn_sup_for" onclick="setPersonNidMode('sup', true)">غير أردني</button>
+              </div>
+            </div>
+            <input type="text" id="sup_nid" inputmode="numeric" placeholder="10 أرقام..." oninput="clearError(this); handleNidInputStrict(this, 'sup')" required>
+          </div>
+          <div class="form-group">
+            <label class="field-label">التخصص الأكاديمي *</label>
+            <input type="text" id="sup_major" placeholder="مثال: هندسة / فيزياء / حاسوب" oninput="clearError(this)" required>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="field-label">البريد الإلكتروني الرسمي *</label>
+            <input type="email" id="sup_email" placeholder="name@moej.edu.jo" oninput="clearError(this)" required>
+          </div>
+          <div class="form-group">
+            <label class="field-label">
+              <svg class="label-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              رقم هاتف المشرف الأساسي *
+            </label>
+            <div class="phone-pill-box" id="box_sup_main_phone">
+              <div class="phone-pill-prefix">
+                <svg class="jordan-flag-svg" style="width: 20px; height: 11px;" viewBox="0 0 1200 600"><rect width="1200" height="200" fill="#000"/><rect y="200" width="1200" height="200" fill="#FFF"/><rect y="400" width="1200" height="200" fill="#007A3D"/><polygon points="0,0 600,300 0,600" fill="#CE1126"/><polygon points="200,240 212,274 246,262 230,294 258,317 222,323 226,359 200,334 173,359 178,323 141,317 169,294 153,262 187,274" fill="#FFF"/></svg>
+                <span>+962</span>
+              </div>
+              <input type="tel" id="sup_main_phone" inputmode="numeric" placeholder="7XXXXXXXX" oninput="clearError('box_sup_main_phone'); sanitizeJordanPhoneInput(this)" required>
+            </div>
+            <span style="font-size: 11px; color: var(--tech-green-dark); font-weight: bold; display: block; margin-top: 4px; padding-right: 12px;">
+              * يرجى التأكد من أن الرقم مفعل عليه تطبيق الواتساب (WhatsApp) ومتاح لاستقبال الرسائل.
+            </span>
+          </div>
+        </div>
+
+        <!-- هاتف إضافي للمشرف -->
+        <div style="border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="field-label">رقم هاتف إضافي للمشرف (اختياري - حد أقصى رقمين إجمالاً):</label>
+            <div style="display: flex; gap: 6px;">
+              <div class="phone-pill-box" style="width: 200px;">
+                <div class="phone-pill-prefix">
+                  <svg class="jordan-flag-svg" style="width: 20px; height: 11px;" viewBox="0 0 1200 600"><rect width="1200" height="200" fill="#000"/><rect y="200" width="1200" height="200" fill="#FFF"/><rect y="400" width="1200" height="200" fill="#007A3D"/><polygon points="0,0 600,300 0,600" fill="#CE1126"/><polygon points="200,240 212,274 246,262 230,294 258,317 222,323 226,359 200,334 173,359 178,323 141,317 169,294 153,262 187,274" fill="#FFF"/></svg>
+                  <span>+962</span>
+                </div>
+                <input type="tel" id="new_sup_phone_input" inputmode="numeric" placeholder="7XXXXXXXX" oninput="sanitizeJordanPhoneInput(this)">
+              </div>
+              <button type="button" class="btn" style="background:var(--tech-green-dark); color:white; padding:10px 18px !important;" onclick="addSupPhoneChip()">+ إضافة</button>
+            </div>
+          </div>
+          <div class="phone-chips-container" id="sup_phones_chips"></div>
+        </div>
+
+        <!-- روابط المشرف -->
+        <div style="margin-top: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="field-label">حسابات المشرف على وسائل التواصل المهنية (حتى 5 روابط):</label>
+            <div style="display: flex; gap: 6px;">
+              <select id="new_sup_link_type" style="width: 140px !important;">
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Facebook">Facebook</option>
+                <option value="WhatsApp">واتساب</option>
+                <option value="GitHub">GitHub</option>
+              </select>
+              <input type="url" id="new_sup_link_url" placeholder="https://..." style="width: 200px !important; direction: ltr;">
+              <button type="button" class="btn" style="background:var(--tech-green-dark); color:white; padding:10px 18px !important;" onclick="addSupLinkChip()">+ إضافة</button>
+            </div>
+          </div>
+          <div class="phone-chips-container" id="sup_links_chips"></div>
+        </div>
+
+        <div class="action-bar">
+          <button type="button" class="btn btn-prev" onclick="goToStep(1)">→ السابق</button>
+          <button type="button" class="btn btn-next" onclick="validateAndGoStep(2, 3)">التالي: الفريق والمسار ←</button>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- الخطوة 3: الفريق والمسار (محملة ديناميكياً من الـ API) -->
+      <!-- ========================================================================= -->
+      <div class="pane-content" id="pane_3">
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="field-label">اسم الفريق المعتمد *</label>
+            <input type="text" id="team_name" placeholder="مثال: فرسان الابتكار" oninput="clearError(this)" required>
+          </div>
+          <div class="form-group">
+            <label class="field-label">عدد أعضاء الفريق *</label>
+            <select id="team_size_select" onchange="handleTeamSizeChange(this.value)">
+              <option value="3">3 طلاب (الحد الأقصى)</option>
+              <option value="2">طالبين فقط</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="field-label">مسار وفئة البطولة المعتمدة (تُجلب من السحابة) *</label>
+            <select id="track_select" onchange="clearError(this)" required>
+              <option value="">-- جاري تحميل المسارات المعتمدة من المنظومة... --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label">عنوان وفكرة المشروع الابتكاري *</label>
+            <input type="text" id="project_title" placeholder="عنوان فكرة المشروع..." oninput="clearError(this)" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">رابط مجلد Google Drive المشترك للفريق (اختياري / موصى به):</label>
+          <input type="url" id="shared_drive_link" placeholder="https://drive.google.com/drive/folders/..." style="direction: ltr; text-align: left;">
+        </div>
+
+        <div class="action-bar">
+          <button type="button" class="btn btn-prev" onclick="goToStep(2)">→ السابق</button>
+          <button type="button" class="btn btn-next" onclick="validateAndGoStep(3, 4)">التالي: أعضاء الفريق ←</button>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- الخطوة 4: أعضاء الفريق -->
+      <!-- ========================================================================= -->
+      <div class="pane-content" id="pane_4">
+        
+        <!-- الطالب 1 -->
+        <div class="member-card m1">
+          <strong style="color: var(--jordan-red); font-size: 14px; display: block; margin-bottom: 8px;">العضو الأول (قائد الفريق):</strong>
+          <label class="field-label">الاسم الرباعي للطالب *</label>
+          <div class="grid-4" style="margin-bottom: 4px;">
+            <input type="text" id="st1_fn" placeholder="الاسم الأول" oninput="clearError(this)" required>
+            <input type="text" id="st1_sn" placeholder="اسم الأب" oninput="clearError(this)" required>
+            <input type="text" id="st1_tn" placeholder="اسم الجد" oninput="clearError(this)" required>
+            <input type="text" id="st1_ln" placeholder="اسم العائلة" oninput="clearError(this)" required>
+          </div>
+          <div class="name-hint" id="st1_name_hint" style="margin-bottom: 10px;">تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.</div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="field-label" id="st1_nid_label" style="margin:0;">الرقم الوطني للطالب (10 أرقام) *</label>
+                <div class="segmented-control">
+                  <button type="button" class="segmented-btn active" id="btn_st1_jor" onclick="setPersonNidMode('st1', false)">أردني</button>
+                  <button type="button" class="segmented-btn" id="btn_st1_for" onclick="setPersonNidMode('st1', true)">غير أردني</button>
+                </div>
+              </div>
+              <input type="text" id="st1_nid" inputmode="numeric" placeholder="10 أرقام..." oninput="clearError(this); handleNidInputStrict(this, 'st1')" required>
+            </div>
+            <div class="form-group"><label class="field-label">المهمة الرئيسية في الفريق *</label><input type="text" id="st1_role" placeholder="مهمة الطالب في الفريق" oninput="clearError(this)" required></div>
+          </div>
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="field-label">الصف الدراسي *</label>
+              <select id="st1_grade" onchange="clearError(this)" required>
+                <option value="">-- اختر الصف --</option>
+                <option value="السابع">السابع</option><option value="الثامن">الثامن</option>
+                <option value="التاسع">التاسع</option><option value="العاشر">العاشر</option>
+                <option value="الحادي عشر">الحادي عشر</option><option value="الثاني عشر">الثاني عشر</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="field-label">العمر (سنوات) *</label><input type="text" id="st1_age" inputmode="numeric" placeholder="العمر بالأرقام" oninput="clearError(this); sanitizeNumbersOnly(this)" required></div>
+            <div class="form-group">
+              <label class="field-label">مقاس الملابس *</label>
+              <select id="st1_size" onchange="clearError(this)" required>
+                <option value="">-- اختر المقاس --</option>
+                <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- الطالب 2 -->
+        <div class="member-card m2">
+          <strong style="color: var(--tech-green-dark); font-size: 14px; display: block; margin-bottom: 8px;">العضو الثاني:</strong>
+          <label class="field-label">الاسم الرباعي للطالب *</label>
+          <div class="grid-4" style="margin-bottom: 4px;">
+            <input type="text" id="st2_fn" placeholder="الاسم الأول" oninput="clearError(this)" required>
+            <input type="text" id="st2_sn" placeholder="اسم الأب" oninput="clearError(this)" required>
+            <input type="text" id="st2_tn" placeholder="اسم الجد" oninput="clearError(this)" required>
+            <input type="text" id="st2_ln" placeholder="اسم العائلة" oninput="clearError(this)" required>
+          </div>
+          <div class="name-hint" id="st2_name_hint" style="margin-bottom: 10px;">تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.</div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="field-label" id="st2_nid_label" style="margin:0;">الرقم الوطني للطالب (10 أرقام) *</label>
+                <div class="segmented-control">
+                  <button type="button" class="segmented-btn active" id="btn_st2_jor" onclick="setPersonNidMode('st2', false)">أردني</button>
+                  <button type="button" class="segmented-btn" id="btn_st2_for" onclick="setPersonNidMode('st2', true)">غير أردني</button>
+                </div>
+              </div>
+              <input type="text" id="st2_nid" inputmode="numeric" placeholder="10 أرقام..." oninput="clearError(this); handleNidInputStrict(this, 'st2')" required>
+            </div>
+            <div class="form-group"><label class="field-label">المهمة الرئيسية في الفريق *</label><input type="text" id="st2_role" placeholder="مهمة الطالب في الفريق" oninput="clearError(this)" required></div>
+          </div>
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="field-label">الصف الدراسي *</label>
+              <select id="st2_grade" onchange="clearError(this)" required>
+                <option value="">-- اختر الصف --</option>
+                <option value="السابع">السابع</option><option value="الثامن">الثامن</option>
+                <option value="التاسع">التاسع</option><option value="العاشر">العاشر</option>
+                <option value="الحادي عشر">الحادي عشر</option><option value="الثاني عشر">الثاني عشر</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="field-label">العمر (سنوات) *</label><input type="text" id="st2_age" inputmode="numeric" placeholder="العمر بالأرقام" oninput="clearError(this); sanitizeNumbersOnly(this)" required></div>
+            <div class="form-group">
+              <label class="field-label">مقاس الملابس *</label>
+              <select id="st2_size" onchange="clearError(this)" required>
+                <option value="">-- اختر المقاس --</option>
+                <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- الطالب 3 -->
+        <div class="member-card m3" id="student_3_box">
+          <strong style="color: var(--jordan-gold); font-size: 14px; display: block; margin-bottom: 8px;">العضو الثالث:</strong>
+          <label class="field-label">الاسم الرباعي للطالب:</label>
+          <div class="grid-4" style="margin-bottom: 4px;">
+            <input type="text" id="st3_fn" placeholder="الاسم الأول" oninput="clearError(this)">
+            <input type="text" id="st3_sn" placeholder="اسم الأب" oninput="clearError(this)">
+            <input type="text" id="st3_tn" placeholder="اسم الجد" oninput="clearError(this)">
+            <input type="text" id="st3_ln" placeholder="اسم العائلة" oninput="clearError(this)">
+          </div>
+          <div class="name-hint" id="st3_name_hint" style="margin-bottom: 10px;">تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.</div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="field-label" id="st3_nid_label" style="margin:0;">الرقم الوطني للطالب (10 أرقام):</label>
+                <div class="segmented-control">
+                  <button type="button" class="segmented-btn active" id="btn_st3_jor" onclick="setPersonNidMode('st3', false)">أردني</button>
+                  <button type="button" class="segmented-btn" id="btn_st3_for" onclick="setPersonNidMode('st3', true)">غير أردني</button>
+                </div>
+              </div>
+              <input type="text" id="st3_nid" inputmode="numeric" placeholder="10 أرقام..." oninput="clearError(this); handleNidInputStrict(this, 'st3')">
+            </div>
+            <div class="form-group"><label class="field-label">المهمة في الفريق:</label><input type="text" id="st3_role" placeholder="مهمة الطالب في الفريق" oninput="clearError(this)"></div>
+          </div>
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="field-label">الصف:</label>
+              <select id="st3_grade" onchange="clearError(this)">
+                <option value="">-- اختر الصف --</option>
+                <option value="السابع">السابع</option><option value="الثامن">الثامن</option>
+                <option value="التاسع">التاسع</option><option value="العاشر">العاشر</option>
+                <option value="الحادي عشر">الحادي عشر</option><option value="الثاني عشر">الثاني عشر</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="field-label">العمر (سنوات):</label><input type="text" id="st3_age" inputmode="numeric" placeholder="العمر بالأرقام" oninput="clearError(this); sanitizeNumbersOnly(this)"></div>
+            <div class="form-group">
+              <label class="field-label">مقاس الملابس:</label>
+              <select id="st3_size" onchange="clearError(this)">
+                <option value="">-- اختر المقاس --</option>
+                <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button type="button" class="btn btn-prev" onclick="goToStep(3)">→ السابق</button>
+          <button type="button" class="btn btn-submit" id="btn_submit_main" onclick="executeAtomicRegistration()">
+            اعتماد وتسجيل الفريق النهائي
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- الخطوة 5: الاعتماد والتسليم الآمن -->
+      <!-- ========================================================================= -->
+      <div class="pane-content" id="pane_5">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 style="color: var(--tech-green-dark); margin: 0;">تم الاعتماد والتسجيل الرسمي بنجاح</h2>
+          <p style="font-size: 15px; color: var(--slate-muted); margin-top: 5px;">
+            كود الفريق المعتمد: <strong style="font-size: 22px; color: var(--jordan-red);" id="res_team_code">AED1101</strong>
+          </p>
+        </div>
+
+        <!-- وثيقة الطالب فقط -->
+        <div style="border: 1px solid var(--border); border-right: 6px solid var(--jordan-red); border-radius: var(--card-radius); padding: 22px; background: white; margin-bottom: 18px;">
+          <h3 style="margin-top: 0; color: var(--jordan-red);">وثيقة وحزمة الفريق (للطلبة):</h3>
+          <p style="font-size: 13px; color: var(--slate-muted);">تستخدم هذه البيانات للدخول على <code>لوحة_التحكم_الرئيسية_Dashboard.html</code>:</p>
+          <div class="grid-2" style="background: #F8FAFC; padding: 14px; border-radius: var(--pill-radius); margin-bottom: 14px;">
+            <div>اسم مستخدم الفريق: <strong id="out_st_user"></strong></div>
+            <div>كلمة المرور: <strong id="out_st_pass"></strong></div>
+          </div>
+          <button class="btn" style="background: #2563EB; color: white;" onclick="downloadStudentPack()">
+            حفظ حزمة الفريق (TPP_Student_Config.json)
+          </button>
+        </div>
+
+        <!-- رسالة إشعار المشرف الرسمية الراقية لمتابعة الواتساب -->
+        <div style="border: 1.5px solid #FCD34D; border-right: 6px solid var(--jordan-gold); border-radius: var(--card-radius); padding: 22px; background: #FFFDF5; margin-top: 20px;">
+          <h3 style="margin-top: 0; color: #92400E; font-size: 16px;">إشعار خاص بالمعلم المشرف الأكاديمي:</h3>
+          <p style="font-size: 14px; color: var(--dark-slate); line-height: 1.8; margin-bottom: 0;">
+            نرحب بكم في البطولة الوطنية للابتكار والروبوت 2026 - 2027. يُرجى التكرم بمتابعة الرسائل الواردة على تطبيق <strong>الواتساب (WhatsApp)</strong> للرقم المعتمد للمشرف؛ حيث سيتم تزويدكم باسم المستخدم وكلمة المرور السرية الخاصة بكم للوصول إلى <code>بوابة_المشرف_المستقلة_Supervisor.html</code> فور تأكيد وتدقيق بيانات القيد من قبل اللجنة المركزية لإدارة البطولة.
+          </p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  const SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbwJu3gSbBIo6CsZ0RgyuXcQe7PgrSaOj0SmNUljLTexjGIeOAMwiPqF9YtyPdQlGyza/exec";
+  
+  let verifiedSchoolData = null;
+  let registeredResult = null;
+  
+  const foreignFlags = { sup: false, st1: false, st2: false, st3: false };
+  const schoolPhonesList = [];
+  const schoolLinksList = [];
+  const supPhonesList = [];
+  const supLinksList = [];
+
+  // 1. ساعة الأردن الحية وتحميل المسارات من الـ API
+  function updateJordanClock() {
+    const now = new Date();
+    const opts = { timeZone: "Asia/Amman", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
+    document.getElementById('liveJordanClock').innerText = now.toLocaleTimeString("en-GB", opts);
+  }
+  setInterval(updateJordanClock, 1000);
+  updateJordanClock();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    loadTracksFromApi();
+    setupSmartNameField('principal');
+    setupSmartNameField('sup');
+    setupSmartNameField('st1');
+    setupSmartNameField('st2');
+    setupSmartNameField('st3');
+  });
+
+  // 2. جلب المسارات من السحابة ديناميكياً
+  async function loadTracksFromApi() {
+    const sel = document.getElementById('track_select');
+    try {
+      const res = await fetch(SCRIPT_API_URL + "?action=GET_PUBLIC_CONFIG");
+      const data = await res.json();
+      if (data.success && data.tracks && data.tracks.length > 0) {
+        sel.innerHTML = '<option value="">-- اختر المسار الرسمي المعتمد --</option>';
+        data.tracks.forEach(t => {
+          const grp = document.createElement('optgroup');
+          grp.label = `${t.name} (${t.code_prefix})`;
+          const subList = Array.isArray(t.sub_tracks) ? t.sub_tracks : [];
+          subList.forEach(sub => {
+            const subName = typeof sub === 'string' ? sub : (sub.name || '');
+            const subCode = typeof sub === 'string' ? sub.substring(0, 2).toUpperCase() : (sub.sub_code || 'EX');
+            const fullPrefix = `${t.code_prefix}${subCode}`;
+            const opt = document.createElement('option');
+            opt.value = `${fullPrefix}|${subName}`;
+            opt.textContent = `${subName} (${fullPrefix})`;
+            grp.appendChild(opt);
+          });
+          sel.appendChild(grp);
+        });
+      }
+    } catch (e) {
+      sel.innerHTML = '<option value="">-- تعذر جلب المسارات، يرجى إعادة المحاولة --</option>';
+    }
+  }
+
+  // 3. معالج مفتاح Enter للتنقل الذكي
+  document.getElementById('tppRegisterForm').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const activePane = document.querySelector('.pane-content.active');
+      if (!activePane) return;
+
+      const focusable = Array.from(activePane.querySelectorAll('input:not([readonly]):not([disabled]), select:not([disabled])'));
+      const activeEl = document.activeElement;
+      const currentIndex = focusable.indexOf(activeEl);
+
+      if (currentIndex >= 0 && currentIndex < focusable.length - 1) {
+        focusable[currentIndex + 1].focus();
+      } else if (currentIndex === focusable.length - 1) {
+        const currentStep = parseInt(activePane.id.replace('pane_', ''));
+        if (currentStep < 4) {
+          validateAndGoStep(currentStep, currentStep + 1);
+        } else if (currentStep === 4) {
+          executeAtomicRegistration();
+        }
+      }
+    }
+  });
+
+  // 4. الموزع الذكي للاسم الرباعي (يعمل عند الخروج من الخانة أو اللصق أو الضغط على Enter)
+  function setupSmartNameField(prefix) {
+    const fnInput = document.getElementById(`${prefix}_fn`);
+    if (!fnInput) return;
+
+    function processNameSplit() {
+      const raw = fnInput.value.trim();
+      if (!raw.includes(' ')) return;
+      const parts = raw.split(/\s+/).filter(Boolean);
+      const hint = document.getElementById(`${prefix}_name_hint`);
+
+      if (parts.length === 4) {
+        document.getElementById(`${prefix}_fn`).value = parts[0];
+        document.getElementById(`${prefix}_sn`).value = parts[1];
+        document.getElementById(`${prefix}_tn`).value = parts[2];
+        document.getElementById(`${prefix}_ln`).value = parts[3];
+        clearError(`${prefix}_fn`);
+        clearError(`${prefix}_sn`);
+        clearError(`${prefix}_tn`);
+        clearError(`${prefix}_ln`);
+        if (hint) {
+          hint.innerText = "تم توزيع الاسم الرباعي بنجاح على الخانات الأربع.";
+          hint.style.display = 'block';
+          hint.style.color = '#166534';
+        }
+      } else if (parts.length > 4 || (parts.length > 1 && parts.length < 4)) {
+        if (hint) {
+          hint.innerText = "الاسم المدخل يحتوي على (" + parts.length + ") مقاطع. يرجى إدخال الاسم الأول هنا وتوزيع باقي المقاطع يدوياً في خاناتها.";
+          hint.style.display = 'block';
+          hint.style.color = '#D97706';
+        }
+      }
+    }
+
+    fnInput.addEventListener('blur', processNameSplit);
+    fnInput.addEventListener('paste', () => setTimeout(processNameSplit, 50));
+    fnInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') processNameSplit(); });
+  }
+
+  // 5. أدوات التنبيه البصري
+  function markError(elementOrId) {
+    const el = typeof elementOrId === 'string' ? document.getElementById(elementOrId) : elementOrId;
+    if (el) el.classList.add('field-has-error');
+  }
+
+  function clearError(elementOrId) {
+    const el = typeof elementOrId === 'string' ? document.getElementById(elementOrId) : elementOrId;
+    if (el) el.classList.remove('field-has-error');
+  }
+
+  function clearAllErrors() {
+    document.querySelectorAll('.field-has-error').forEach(el => el.classList.remove('field-has-error'));
+  }
+
+  function scrollToFirstError(firstEl) {
+    if (firstEl) {
+      firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstEl.focus();
+    }
+  }
+
+  function toEnglishDigits(str) {
+    if (!str) return '';
+    return str.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+              .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+  }
+
+  function sanitizeNumbersOnly(input) {
+    input.value = toEnglishDigits(input.value).replace(/\D/g, '');
+  }
+
+  function sanitizePhoneLeadingZero(input) {
+    let val = toEnglishDigits(input.value).replace(/\D/g, '');
+    if (val.startsWith('0')) val = val.substring(1);
+    if (val.length > 9) val = val.substring(0, 9);
+    input.value = val;
+  }
+
+  function sanitizeJordanPhoneInput(input) {
+    let val = toEnglishDigits(input.value).replace(/\D/g, '');
+    if (val.startsWith('0')) val = val.substring(1);
+    if (val.length > 9) val = val.substring(0, 9);
+    input.value = val;
+  }
+
+  function setPersonNidMode(personKey, isForeign) {
+    foreignFlags[personKey] = isForeign;
+    document.getElementById(`btn_${personKey}_jor`).classList.toggle('active', !isForeign);
+    document.getElementById(`btn_${personKey}_for`).classList.toggle('active', isForeign);
+    
+    const lbl = document.getElementById(`${personKey}_nid_label`);
+    const inp = document.getElementById(`${personKey}_nid`);
+    clearError(inp);
+    
+    if (isForeign) {
+      lbl.innerText = "الرقم التعريفي / جواز السفر (غير أردني) *";
+      inp.placeholder = "أدخل الرقم التعريفي...";
+    } else {
+      lbl.innerText = "الرقم الوطني (10 أرقام) *";
+      inp.placeholder = "10 أرقام وطنية...";
+      sanitizeNumbersOnly(inp);
+    }
+  }
+
+  function handleNidInputStrict(input, personKey) {
+    if (!foreignFlags[personKey]) {
+      let val = toEnglishDigits(input.value).replace(/\D/g, '');
+      if (val.length > 10) val = val.substring(0, 10);
+      input.value = val;
+    }
+  }
+
+  // 6. هواتف وروابط المدرسة (سقف رقمين للهواتف)
+  function addSchoolPhoneChip() {
+    const inp = document.getElementById('new_school_phone_input');
+    const val = inp.value.trim();
+    if (!val || (val.length !== 9 && val.length !== 8 && val.length !== 7)) {
+      alert("يرجى كتابة رقم هاتف صحيح (خلوي 9 أرقام أو أرضي 7-8 أرقام).");
+      return;
+    }
+    if (schoolPhonesList.length >= 2) {
+      alert("الحد الأقصى لهواتف المدرسة هو رقمين فقط.");
+      return;
+    }
+    schoolPhonesList.push("+962" + val);
+    inp.value = '';
+    clearError('box_new_school_phone');
+    renderSchoolPhoneChips();
+  }
+
+  function renderSchoolPhoneChips() {
+    const c = document.getElementById('school_phones_chips');
+    c.innerHTML = '';
+    schoolPhonesList.forEach((p, idx) => {
+      c.innerHTML += `<div class="phone-chip">${p} <span class="del-btn" onclick="schoolPhonesList.splice(${idx},1); renderSchoolPhoneChips();">✕</span></div>`;
+    });
+  }
+
+  function addSchoolLinkChip() {
+    const type = document.getElementById('new_school_link_type').value;
+    const urlInput = document.getElementById('new_school_link_url');
+    const url = urlInput.value.trim();
+    if (!url || !url.startsWith('http')) { alert("يرجى إدخال رابط صحيح يبدأ بـ http/https."); return; }
+    if (schoolLinksList.length >= 5) { alert("الحد الأقصى هو 5 روابط."); return; }
+    schoolLinksList.push({ type: type, url: url });
+    urlInput.value = '';
+    clearError(urlInput);
+    renderSchoolLinkChips();
+  }
+
+  function renderSchoolLinkChips() {
+    const c = document.getElementById('school_links_chips');
+    c.innerHTML = '';
+    schoolLinksList.forEach((l, idx) => {
+      c.innerHTML += `<div class="phone-chip" style="background:#EFF6FF; border-color:#BFDBFE; color:#1E40AF;">${l.type}: ${l.url.substring(0,25)}... <span class="del-btn" onclick="schoolLinksList.splice(${idx},1); renderSchoolLinkChips();">✕</span></div>`;
+    });
+  }
+
+  // 7. هواتف وروابط المشرف (سقف رقمين للهواتف)
+  function addSupPhoneChip() {
+    const inp = document.getElementById('new_sup_phone_input');
+    const val = inp.value.trim();
+    if (!val || val.length !== 9 || !val.startsWith('7')) {
+      alert("رقم الهاتف الإضافي يجب أن يتكون من 9 أرقام تبدأ بـ 7.");
+      return;
+    }
+    if (supPhonesList.length >= 1) {
+      alert("الحد الأقصى لهواتف المشرف هو رقمين إجمالاً.");
+      return;
+    }
+    supPhonesList.push("+962" + val);
+    inp.value = '';
+    renderSupPhoneChips();
+  }
+
+  function renderSupPhoneChips() {
+    const c = document.getElementById('sup_phones_chips');
+    c.innerHTML = '';
+    supPhonesList.forEach((p, idx) => {
+      c.innerHTML += `<div class="phone-chip">${p} <span class="del-btn" onclick="supPhonesList.splice(${idx},1); renderSupPhoneChips();">✕</span></div>`;
+    });
+  }
+
+  function addSupLinkChip() {
+    const type = document.getElementById('new_sup_link_type').value;
+    const url = document.getElementById('new_sup_link_url').value.trim();
+    if (!url || !url.startsWith('http')) { alert("يرجى إدخال رابط يبدأ بـ http/https."); return; }
+    if (supLinksList.length >= 5) { alert("الحد الأقصى 5 روابط."); return; }
+    supLinksList.push({ type: type, url: url });
+    document.getElementById('new_sup_link_url').value = '';
+    renderSupLinkChips();
+  }
+
+  function renderSupLinkChips() {
+    const c = document.getElementById('sup_links_chips');
+    c.innerHTML = '';
+    supLinksList.forEach((l, idx) => {
+      c.innerHTML += `<div class="phone-chip" style="background:#FFFDF5; border-color:#FDE68A; color:#92400E;">${l.type}: ${l.url.substring(0,25)}... <span class="del-btn" onclick="supLinksList.splice(${idx},1); renderSupLinkChips();">✕</span></div>`;
+    });
+  }
+
+  // 8. الاستعلام الصارم بالرقم الوطني
+  async function lookupSchoolStrict() {
+    const code = document.getElementById('school_code').value.trim();
+    const statusText = document.getElementById('lookup_status_text');
+    const nextBtn = document.getElementById('btn_step_1_next');
+    hideToast();
+    clearAllErrors();
+
+    if (!code) {
+      markError('school_code');
+      showToast("يرجى إدخال الرقم الوطني للمدرسة.", "err");
+      return;
+    }
+
+    statusText.innerHTML = '<span style="color: #2563EB;">جاري التحقق من السجل الوطني للمدارس...</span>';
+    nextBtn.disabled = true;
+
+    try {
+      const res = await fetch(SCRIPT_API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "FETCH_SCHOOL_BY_ID", school_national_id: code })
+      });
+      const data = await res.json();
+
+      if (data.success && data.school) {
+        verifiedSchoolData = data.school;
+        document.getElementById('school_name').value = verifiedSchoolData.school_name || "";
+        document.getElementById('school_type').value = verifiedSchoolData.school_type || "حكومي";
+        document.getElementById('governorate').value = verifiedSchoolData.governorate || "";
+        document.getElementById('directorate_name').value = verifiedSchoolData.directorate_name || "";
+        document.getElementById('directorate_code').value = verifiedSchoolData.directorate_code || "";
+        document.getElementById('region').value = verifiedSchoolData.region || "";
+        document.getElementById('district').value = verifiedSchoolData.district || "";
+        document.getElementById('school_gender').value = verifiedSchoolData.school_gender || "مختلطة";
+
+        statusText.innerHTML = '<span style="color: #166534;">تم جلب وتثبيت بيانات المدرسة بنجاح وقفل البيانات الرسمية.</span>';
+        nextBtn.disabled = false;
+      } else {
+        markError('school_code');
+        statusText.innerHTML = `<span style="color: #DC2626;">${data.message || 'المدرسة غير مسجلة.'}</span>`;
+        nextBtn.disabled = true;
+      }
+    } catch(e) {
+      statusText.innerHTML = '<span style="color: #DC2626;">تعذر الاتصال بقاعدة البيانات المركزية.</span>';
+      nextBtn.disabled = true;
+    }
+  }
+
+  // 9. التحقق بين الخطوات مع إلزامية هاتف ورابط المدرسة
+  function validateAndGoStep(currentStep, targetStep) {
+    hideToast();
+    clearAllErrors();
+    let firstErrorEl = null;
+
+    if (currentStep === 1) {
+      if (!verifiedSchoolData) {
+        markError('school_code');
+        showToast("يرجى جلب وتثبيت قيد المدرسة أولاً.", "err");
+        scrollToFirstError(document.getElementById('school_code'));
+        return;
+      }
+
+      // اعتماد الهاتف إن كان مكتوباً في الخانة
+      const sPhoneTyped = document.getElementById('new_school_phone_input').value.trim();
+      if (sPhoneTyped && (sPhoneTyped.length === 9 || sPhoneTyped.length === 8 || sPhoneTyped.length === 7)) {
+        if (schoolPhonesList.length < 2) {
+          schoolPhonesList.push("+962" + sPhoneTyped);
+          document.getElementById('new_school_phone_input').value = '';
+          renderSchoolPhoneChips();
+        }
+      }
+      if (schoolPhonesList.length === 0) {
+        markError('box_new_school_phone');
+        showToast("يرجى إدخال وإضافة رقم هاتف معتمد للمدرسة على الأقل.", "err");
+        scrollToFirstError(document.getElementById('new_school_phone_input'));
+        return;
+      }
+
+      // اعتماد الرابط إن كان مكتوباً في الخانة
+      const sLinkTyped = document.getElementById('new_school_link_url').value.trim();
+      const sLinkType = document.getElementById('new_school_link_type').value;
+      if (sLinkTyped && sLinkTyped.startsWith('http')) {
+        if (schoolLinksList.length < 5) {
+          schoolLinksList.push({ type: sLinkType, url: sLinkTyped });
+          document.getElementById('new_school_link_url').value = '';
+          renderSchoolLinkChips();
+        }
+      }
+      if (schoolLinksList.length === 0) {
+        markError('new_school_link_url');
+        showToast("يرجى إدخال وإضافة رابط موقع أو صفحة تواصل للمدرسة على الأقل.", "err");
+        scrollToFirstError(document.getElementById('new_school_link_url'));
+        return;
+      }
+
+      const pFn = document.getElementById('principal_fn');
+      const pSn = document.getElementById('principal_sn');
+      const pTn = document.getElementById('principal_tn');
+      const pLn = document.getElementById('principal_ln');
+      const pPhone = document.getElementById('principal_phone');
+
+      if (!pFn.value.trim()) { markError(pFn); if (!firstErrorEl) firstErrorEl = pFn; }
+      if (!pSn.value.trim()) { markError(pSn); if (!firstErrorEl) firstErrorEl = pSn; }
+      if (!pTn.value.trim()) { markError(pTn); if (!firstErrorEl) firstErrorEl = pTn; }
+      if (!pLn.value.trim()) { markError(pLn); if (!firstErrorEl) firstErrorEl = pLn; }
+
+      if (firstErrorEl) {
+        showToast("يرجى إكمال الاسم الرباعي لمدير المدرسة كاملاً.", "err");
+        scrollToFirstError(firstErrorEl);
+        return;
+      }
+
+      const phoneVal = pPhone.value.trim();
+      if (!phoneVal || phoneVal.length !== 9 || !phoneVal.startsWith('7')) {
+        markError('box_principal_phone');
+        showToast("هاتف مدير المدرسة يجب أن يتكون من 9 أرقام تبدأ بـ 7.", "err");
+        scrollToFirstError(pPhone);
+        return;
+      }
+    }
+
+    if (currentStep === 2) {
+      const sFn = document.getElementById('sup_fn');
+      const sSn = document.getElementById('sup_sn');
+      const sTn = document.getElementById('sup_tn');
+      const sLn = document.getElementById('sup_ln');
+      const sNid = document.getElementById('sup_nid');
+      const sMajor = document.getElementById('sup_major');
+      const sEmail = document.getElementById('sup_email');
+      const sPhone = document.getElementById('sup_main_phone');
+
+      if (!sFn.value.trim()) { markError(sFn); if (!firstErrorEl) firstErrorEl = sFn; }
+      if (!sSn.value.trim()) { markError(sSn); if (!firstErrorEl) firstErrorEl = sSn; }
+      if (!sTn.value.trim()) { markError(sTn); if (!firstErrorEl) firstErrorEl = sTn; }
+      if (!sLn.value.trim()) { markError(sLn); if (!firstErrorEl) firstErrorEl = sLn; }
+
+      if (firstErrorEl) {
+        showToast("يرجى إكمال الاسم الرباعي للمشرف الأكاديمي.", "err");
+        scrollToFirstError(firstErrorEl);
+        return;
+      }
+
+      if (!foreignFlags.sup && sNid.value.trim().length !== 10) {
+        markError(sNid);
+        showToast("الرقم الوطني للمشرف الأردني يجب أن يتكون من 10 أرقام تماماً.", "err");
+        scrollToFirstError(sNid);
+        return;
+      }
+
+      if (!sMajor.value.trim()) {
+        markError(sMajor);
+        showToast("يرجى كتابة التخصص الأكاديمي للمشرف.", "err");
+        scrollToFirstError(sMajor);
+        return;
+      }
+
+      if (!sEmail.value.trim() || !sEmail.value.includes('@')) {
+        markError(sEmail);
+        showToast("يرجى كتابة بريد إلكتروني صحيح للمشرف.", "err");
+        scrollToFirstError(sEmail);
+        return;
+      }
+
+      const supPhoneVal = sPhone.value.trim();
+      if (!supPhoneVal || supPhoneVal.length !== 9 || !supPhoneVal.startsWith('7')) {
+        markError('box_sup_main_phone');
+        showToast("هاتف المشرف الأساسي يجب أن يتكون من 9 أرقام تبدأ بـ 7.", "err");
+        scrollToFirstError(sPhone);
+        return;
+      }
+    }
+
+    if (currentStep === 3) {
+      const tName = document.getElementById('team_name');
+      const track = document.getElementById('track_select');
+      const pTitle = document.getElementById('project_title');
+
+      if (!tName.value.trim()) {
+        markError(tName);
+        showToast("يرجى كتابة اسم الفريق المعتمد.", "err");
+        scrollToFirstError(tName);
+        return;
+      }
+      if (!track.value) {
+        markError(track);
+        showToast("يرجى اختيار مسار وفئة البطولة.", "err");
+        scrollToFirstError(track);
+        return;
+      }
+      if (!pTitle.value.trim()) {
+        markError(pTitle);
+        showToast("يرجى كتابة عنوان فكرة المشروع.", "err");
+        scrollToFirstError(pTitle);
+        return;
+      }
+    }
+
+    goToStep(targetStep);
+  }
+
+  function goToStep(step) {
+    hideToast();
+    clearAllErrors();
+    document.querySelectorAll('.pane-content').forEach(p => p.classList.remove('active'));
+    document.getElementById('pane_' + step).classList.add('active');
+
+    for (let i = 1; i <= 5; i++) {
+      const pill = document.getElementById('st_pill_' + i);
+      pill.classList.remove('active', 'completed');
+      if (i < step) pill.classList.add('completed');
+      if (i === step) pill.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function handleTeamSizeChange(size) {
+    document.getElementById('student_3_box').style.display = (size === "2") ? "none" : "block";
+  }
+
+  // 10. التحقق النهائي والإرسال
+  async function executeAtomicRegistration() {
+    hideToast();
+    clearAllErrors();
+    let firstErrorEl = null;
+
+    // فحص الطالب 1
+    const st1_fn = document.getElementById('st1_fn');
+    const st1_sn = document.getElementById('st1_sn');
+    const st1_tn = document.getElementById('st1_tn');
+    const st1_ln = document.getElementById('st1_ln');
+    const st1_nid = document.getElementById('st1_nid');
+    const st1_grade = document.getElementById('st1_grade');
+    const st1_age = document.getElementById('st1_age');
+    const st1_size = document.getElementById('st1_size');
+    const st1_role = document.getElementById('st1_role');
+
+    if (!st1_fn.value.trim()) { markError(st1_fn); if (!firstErrorEl) firstErrorEl = st1_fn; }
+    if (!st1_sn.value.trim()) { markError(st1_sn); if (!firstErrorEl) firstErrorEl = st1_sn; }
+    if (!st1_tn.value.trim()) { markError(st1_tn); if (!firstErrorEl) firstErrorEl = st1_tn; }
+    if (!st1_ln.value.trim()) { markError(st1_ln); if (!firstErrorEl) firstErrorEl = st1_ln; }
+
+    if (firstErrorEl) {
+      showToast("يرجى إكمال الاسم الرباعي للطالب الأول.", "err");
+      scrollToFirstError(firstErrorEl);
+      return;
+    }
+
+    if (!foreignFlags.st1 && st1_nid.value.trim().length !== 10) {
+      markError(st1_nid);
+      showToast("الرقم الوطني للطالب الأول يجب أن يكون 10 أرقام.", "err");
+      scrollToFirstError(st1_nid);
+      return;
+    }
+    if (!st1_role.value.trim()) {
+      markError(st1_role);
+      showToast("يرجى كتابة مهمة الطالب الأول في الفريق.", "err");
+      scrollToFirstError(st1_role);
+      return;
+    }
+    if (!st1_grade.value) {
+      markError(st1_grade);
+      showToast("يرجى اختيار الصف الدراسي للطالب الأول.", "err");
+      scrollToFirstError(st1_grade);
+      return;
+    }
+    if (!st1_age.value.trim()) {
+      markError(st1_age);
+      showToast("يرجى إدخال عمر الطالب الأول بالأرقام.", "err");
+      scrollToFirstError(st1_age);
+      return;
+    }
+    if (!st1_size.value) {
+      markError(st1_size);
+      showToast("يرجى اختيار مقاس ملابس الطالب الأول.", "err");
+      scrollToFirstError(st1_size);
+      return;
+    }
+
+    // فحص الطالب 2
+    const st2_fn = document.getElementById('st2_fn');
+    const st2_sn = document.getElementById('st2_sn');
+    const st2_tn = document.getElementById('st2_tn');
+    const st2_ln = document.getElementById('st2_ln');
+    const st2_nid = document.getElementById('st2_nid');
+    const st2_grade = document.getElementById('st2_grade');
+    const st2_age = document.getElementById('st2_age');
+    const st2_size = document.getElementById('st2_size');
+    const st2_role = document.getElementById('st2_role');
+
+    if (!st2_fn.value.trim()) { markError(st2_fn); if (!firstErrorEl) firstErrorEl = st2_fn; }
+    if (!st2_sn.value.trim()) { markError(st2_sn); if (!firstErrorEl) firstErrorEl = st2_sn; }
+    if (!st2_tn.value.trim()) { markError(st2_tn); if (!firstErrorEl) firstErrorEl = st2_tn; }
+    if (!st2_ln.value.trim()) { markError(st2_ln); if (!firstErrorEl) firstErrorEl = st2_ln; }
+
+    if (firstErrorEl) {
+      showToast("يرجى إكمال الاسم الرباعي للطالب الثاني.", "err");
+      scrollToFirstError(firstErrorEl);
+      return;
+    }
+
+    if (!foreignFlags.st2 && st2_nid.value.trim().length !== 10) {
+      markError(st2_nid);
+      showToast("الرقم الوطني للطالب الثاني يجب أن يكون 10 أرقام.", "err");
+      scrollToFirstError(st2_nid);
+      return;
+    }
+    if (!st2_role.value.trim()) {
+      markError(st2_role);
+      showToast("يرجى كتابة مهمة الطالب الثاني في الفريق.", "err");
+      scrollToFirstError(st2_role);
+      return;
+    }
+    if (!st2_grade.value) {
+      markError(st2_grade);
+      showToast("يرجى اختيار الصف الدراسي للطالب الثاني.", "err");
+      scrollToFirstError(st2_grade);
+      return;
+    }
+    if (!st2_age.value.trim()) {
+      markError(st2_age);
+      showToast("يرجى إدخال عمر الطالب الثاني بالأرقام.", "err");
+      scrollToFirstError(st2_age);
+      return;
+    }
+    if (!st2_size.value) {
+      markError(st2_size);
+      showToast("يرجى اختيار مقاس ملابس الطالب الثاني.", "err");
+      scrollToFirstError(st2_size);
+      return;
+    }
+
+    const teamSize = document.getElementById('team_size_select').value;
+    let st3_obj = null;
+
+    if (teamSize === "3") {
+      const st3_fn = document.getElementById('st3_fn');
+      const st3_sn = document.getElementById('st3_sn');
+      const st3_tn = document.getElementById('st3_tn');
+      const st3_ln = document.getElementById('st3_ln');
+      const st3_nid = document.getElementById('st3_nid');
+      const st3_grade = document.getElementById('st3_grade');
+      const st3_age = document.getElementById('st3_age');
+      const st3_size = document.getElementById('st3_size');
+      const st3_role = document.getElementById('st3_role');
+
+      if (!st3_fn.value.trim()) { markError(st3_fn); if (!firstErrorEl) firstErrorEl = st3_fn; }
+      if (!st3_sn.value.trim()) { markError(st3_sn); if (!firstErrorEl) firstErrorEl = st3_sn; }
+      if (!st3_tn.value.trim()) { markError(st3_tn); if (!firstErrorEl) firstErrorEl = st3_tn; }
+      if (!st3_ln.value.trim()) { markError(st3_ln); if (!firstErrorEl) firstErrorEl = st3_ln; }
+
+      if (firstErrorEl) {
+        showToast("يرجى إكمال الاسم الرباعي للطالب الثالث.", "err");
+        scrollToFirstError(firstErrorEl);
+        return;
+      }
+
+      if (!foreignFlags.st3 && st3_nid.value.trim().length !== 10) {
+        markError(st3_nid);
+        showToast("الرقم الوطني للطالب الثالث يجب أن يكون 10 أرقام.", "err");
+        scrollToFirstError(st3_nid);
+        return;
+      }
+      if (!st3_role.value.trim()) {
+        markError(st3_role);
+        showToast("يرجى كتابة مهمة الطالب الثالث في الفريق.", "err");
+        scrollToFirstError(st3_role);
+        return;
+      }
+      if (!st3_grade.value) {
+        markError(st3_grade);
+        showToast("يرجى اختيار الصف الدراسي للطالب الثالث.", "err");
+        scrollToFirstError(st3_grade);
+        return;
+      }
+      if (!st3_age.value.trim()) {
+        markError(st3_age);
+        showToast("يرجى إدخال عمر الطالب الثالث بالأرقام.", "err");
+        scrollToFirstError(st3_age);
+        return;
+      }
+      if (!st3_size.value) {
+        markError(st3_size);
+        showToast("يرجى اختيار مقاس ملابس الطالب الثالث.", "err");
+        scrollToFirstError(st3_size);
+        return;
+      }
+
+      st3_obj = {
+        name: `${st3_fn.value.trim()} ${st3_sn.value.trim()} ${st3_tn.value.trim()} ${st3_ln.value.trim()}`,
+        national_id: st3_nid.value.trim(),
+        is_foreign: foreignFlags.st3,
+        grade: st3_grade.value,
+        age: st3_age.value.trim(),
+        cloth_size: st3_size.value,
+        role: st3_role.value.trim()
+      };
+    }
+
+    // فحص التكرار الداخلي بين الأرقام الوطنية
+    const supNid = document.getElementById('sup_nid').value.trim();
+    const internalNids = [
+      { nid: supNid, foreign: foreignFlags.sup, role: "المشرف", el: document.getElementById('sup_nid') },
+      { nid: st1_nid.value.trim(), foreign: foreignFlags.st1, role: "الطالب الأول", el: st1_nid },
+      { nid: st2_nid.value.trim(), foreign: foreignFlags.st2, role: "الطالب الثاني", el: st2_nid }
+    ];
+    if (teamSize === "3") {
+      internalNids.push({ nid: document.getElementById('st3_nid').value.trim(), foreign: foreignFlags.st3, role: "الطالب الثالث", el: document.getElementById('st3_nid') });
+    }
+
+    for (let i = 0; i < internalNids.length; i++) {
+      if (internalNids[i].foreign || !internalNids[i].nid) continue;
+      for (let j = i + 1; j < internalNids.length; j++) {
+        if (!internalNids[j].foreign && internalNids[i].nid === internalNids[j].nid) {
+          markError(internalNids[i].el);
+          markError(internalNids[j].el);
+          showToast(`خطأ داخلي: تم تكرار نفس الرقم الوطني (${internalNids[i].nid}) بين (${internalNids[i].role}) و (${internalNids[j].role}).`, "err");
+          scrollToFirstError(internalNids[j].el);
+          return;
+        }
+      }
+    }
+
+    const members = [
+      {
+        name: `${st1_fn.value.trim()} ${st1_sn.value.trim()} ${st1_tn.value.trim()} ${st1_ln.value.trim()}`,
+        national_id: st1_nid.value.trim(),
+        is_foreign: foreignFlags.st1,
+        grade: document.getElementById('st1_grade').value,
+        age: st1_age.value.trim(),
+        cloth_size: document.getElementById('st1_size').value,
+        role: document.getElementById('st1_role').value.trim()
+      },
+      {
+        name: `${st2_fn.value.trim()} ${st2_sn.value.trim()} ${st2_tn.value.trim()} ${st2_ln.value.trim()}`,
+        national_id: st2_nid.value.trim(),
+        is_foreign: foreignFlags.st2,
+        grade: document.getElementById('st2_grade').value,
+        age: st2_age.value.trim(),
+        cloth_size: document.getElementById('st2_size').value,
+        role: document.getElementById('st2_role').value.trim()
+      }
+    ];
+    if (st3_obj) members.push(st3_obj);
+
+    const [trackPrefix, trackName] = document.getElementById('track_select').value.split('|');
+    const supMainPhone = "+962" + document.getElementById('sup_main_phone').value.trim();
+    const allSupPhones = [supMainPhone, ...supPhonesList];
+
+    const btn = document.getElementById('btn_submit_main');
+    btn.disabled = true;
+    btn.innerText = "جاري الفحص والاعتماد السحابي...";
+
+    const payload = {
+      action: "REGISTER_NEW_TEAM",
+      payload: {
+        school_code: document.getElementById('school_code').value.trim(),
+        school_name: document.getElementById('school_name').value.trim(),
+        school_type: document.getElementById('school_type').value,
+        governorate: document.getElementById('governorate').value,
+        directorate_name: document.getElementById('directorate_name').value,
+        directorate_code: document.getElementById('directorate_code').value,
+        region: document.getElementById('region').value,
+        district: document.getElementById('district').value,
+        school_gender: document.getElementById('school_gender').value,
+        school_phones: schoolPhonesList,
+        school_links: schoolLinksList,
+
+        principal: {
+          name: `${document.getElementById('principal_fn').value.trim()} ${document.getElementById('principal_sn').value.trim()} ${document.getElementById('principal_tn').value.trim()} ${document.getElementById('principal_ln').value.trim()}`,
+          phone: "+962" + document.getElementById('principal_phone').value.trim()
+        },
+
+        supervisor: {
+          name: `${document.getElementById('sup_fn').value.trim()} ${document.getElementById('sup_sn').value.trim()} ${document.getElementById('sup_tn').value.trim()} ${document.getElementById('sup_ln').value.trim()}`,
+          national_id: supNid,
+          is_foreign: foreignFlags.sup,
+          major: document.getElementById('sup_major').value.trim(),
+          phone: supMainPhone,
+          phones: allSupPhones,
+          email: document.getElementById('sup_email').value.trim(),
+          links: supLinksList
+        },
+
+        team_name: document.getElementById('team_name').value.trim(),
+        team_size: teamSize,
+        track_prefix: trackPrefix,
+        track_name: trackName,
+        project_title: document.getElementById('project_title').value.trim(),
+        shared_drive_link: document.getElementById('shared_drive_link').value.trim(),
+        members: members
+      }
+    };
+
+    try {
+      const res = await fetch(SCRIPT_API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        registeredResult = data;
+        document.getElementById('res_team_code').innerText = data.team_code;
+        document.getElementById('out_st_user').innerText = data.student_credentials.username;
+        document.getElementById('out_st_pass').innerText = data.student_credentials.password;
+        
+        localStorage.setItem('TPP_TEAM_SESSION', JSON.stringify(data.student_credentials));
+        goToStep(5);
+      } else {
+        showToast(data.message || "تعذر إتمام التسجيل.", "err");
+      }
+    } catch(e) {
+      showToast("حدث خطأ في الاتصال بالمنظومة المركزية.", "err");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "اعتماد وتسجيل الفريق النهائي";
+    }
+  }
+
+  function downloadStudentPack() {
+    const configData = {
+      championship: "البطولة الوطنية للابتكار والروبوت 2026 - 2027",
+      ministry: "وزارة التربية والتعليم وتنمية الموارد البشرية",
+      credentials: registeredResult?.student_credentials || {},
+      created_at: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(configData, null, 2)], { type: "application/json" });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `TPP_Student_Config_${configData.credentials.team_code || 'Team'}.json`;
+    a.click();
+  }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast_msg');
+    t.className = `toast-alert toast-${type}`;
+    t.innerText = msg;
+    t.style.display = 'block';
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+  }
+
+  function hideToast() {
+    document.getElementById('toast_msg').style.display = 'none';
+  }
+</script>
+</body>
+</html>
