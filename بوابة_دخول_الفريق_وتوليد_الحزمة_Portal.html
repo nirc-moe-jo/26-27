@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة دخول الفريق وتوليد مساحة العمل | محفظة TPP 2026 - 2027</title>
+  <!-- مكتبة توليد ملفات ZIP الآمنة في المتصفح -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    :root {
+      --jordan-red: #8B0000;
+      --jordan-red-dark: #600000;
+      --jordan-green: #006400;
+      --jordan-gold: #D4AF37;
+      --tech-green: #10B981;
+      --tech-green-dark: #059669;
+      --dark-slate: #0F172A;
+      --navy: #1E293B;
+      --slate-muted: #64748B;
+      --light-bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #CBD5E1;
+      --border-focus: #10B981;
+      
+      --pill-radius: 50px;
+      --card-radius: 24px;
+    }
+
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background-color: var(--light-bg);
+      color: var(--dark-slate);
+      margin: 0;
+      padding: 30px 12px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      border-top: 6px solid var(--jordan-red);
+    }
+
+    .header-branding {
+      padding: 22px 25px;
+      background: #FFFFFF;
+      border-bottom: 2px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .branding-right { display: flex; align-items: center; gap: 12px; }
+    .coat-of-arms { width: 50px; height: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); }
+    .branding-titles h2 { margin: 0; font-size: 15px; color: var(--dark-slate); font-weight: 800; }
+    .branding-titles .ministry { margin: 2px 0 0 0; font-size: 12px; color: var(--jordan-red); font-weight: bold; }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #F8FAFC;
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      border: 1px solid var(--border);
+    }
+    .jordan-flag-svg { width: 44px; height: 22px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .clock-badge { display: flex; flex-direction: column; align-items: flex-start; }
+    .clock-title { font-size: 9px; color: var(--slate-muted); font-weight: bold; }
+    .clock-time { font-family: monospace; font-size: 14px; font-weight: bold; color: var(--jordan-red); letter-spacing: 0.5px; }
+
+    .portal-body { padding: 35px 30px; text-align: center; }
+    .portal-body h1 { margin: 0 0 6px 0; font-size: 21px; color: var(--dark-slate); font-weight: 800; }
+    .portal-body .sub-title { margin: 0 0 25px 0; font-size: 13px; color: var(--slate-muted); }
+
+    .form-group { margin-bottom: 18px; text-align: right; }
+    .form-group label { display: block; margin-bottom: 7px; font-weight: 700; font-size: 13px; color: var(--dark-slate); }
+    .form-group input {
+      width: 100% !important;
+      padding: 12px 20px !important;
+      border: 1.5px solid var(--border) !important;
+      border-radius: var(--pill-radius) !important;
+      font-size: 15px !important;
+      background: white !important;
+      color: var(--dark-slate) !important;
+      outline: none !important;
+      transition: all 0.25s ease !important;
+    }
+    .form-group input:focus {
+      border-color: var(--border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 13px 25px !important;
+      border-radius: var(--pill-radius) !important;
+      border: none;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--tech-green-dark); color: white; margin-top: 10px; }
+    .btn-primary:hover { background: var(--jordan-green); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .success-view { display: none; }
+    .team-badge-box {
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: var(--card-radius);
+      padding: 20px;
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    .toast-alert {
+      padding: 12px 18px;
+      border-radius: var(--pill-radius);
+      margin-bottom: 18px;
+      font-size: 13px;
+      display: none;
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #F87171;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  
+  <!-- الترويسة الرسمية -->
+  <div class="header-branding">
+    <div class="branding-right">
+      <img src="https://imglink.cc/cdn/-bfPMnd0rv.png" alt="شعار المملكة الأردنية الهاشمية" class="coat-of-arms">
+      <div class="branding-titles">
+        <h2>المملكة الأردنية الهاشمية</h2>
+        <div class="ministry">وزارة التربية والتعليم وتنمية الموارد البشرية</div>
+      </div>
+    </div>
+
+    <!-- العلم الأردني الدقيق وساعة الأردن -->
+    <div class="header-left">
+      <svg class="jordan-flag-svg" viewBox="0 0 1200 600">
+        <rect width="1200" height="200" fill="#000000"/>
+        <rect y="200" width="1200" height="200" fill="#FFFFFF"/>
+        <rect y="400" width="1200" height="200" fill="#007A3D"/>
+        <polygon points="0,0 600,300 0,600" fill="#CE1126"/>
+        <polygon points="
+          200.0,240.0 212.1,274.8 246.9,262.6 230.1,294.6 258.5,317.9 
+          222.0,323.0 226.7,359.5 200.0,334.4 173.3,359.5 178.0,323.0 
+          141.5,317.9 169.9,294.6 153.1,262.6 187.9,274.8" fill="#FFFFFF"/>
+      </svg>
+      <div class="clock-badge">
+        <span class="clock-title">الساعة الآن</span>
+        <span class="clock-time" id="liveJordanClock">--:--:--</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-body">
+    
+    <!-- واجهة تسجيل الدخول -->
+    <div id="loginView">
+      <h1>دخول الفريق واستلام مساحة العمل</h1>
+      <div class="sub-title">البطولة الوطنية للابتكار والروبوت 2026 - 2027</div>
+
+      <div id="toast_msg" class="toast-alert"></div>
+
+      <div class="form-group">
+        <label>اسم مستخدم الفريق المعتمد:</label>
+        <input type="text" id="team_username" placeholder="مثال: team_aed1101" autofocus>
+      </div>
+
+      <div class="form-group">
+        <label>كلمة مرور الفريق السرية:</label>
+        <input type="password" id="team_password" placeholder="tpp@XXXX">
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btn_login" onclick="authenticateAndGeneratePackage()">
+        فتح وتوليد حزمة المشروع الخاصة بالفريق ←
+      </button>
+
+      <div style="margin-top: 20px; font-size: 12px; color: var(--slate-muted);">
+        ليس لديكم حساب؟ <a href="registration.html" style="color: var(--jordan-red); font-weight: bold; text-decoration: none;">سجلوا فريقكم في البطولة الآن ←</a>
+      </div>
+    </div>
+
+    <!-- واجهة التحميل بعد التحقق والتوليد -->
+    <div class="success-view" id="successView">
+      <div style="font-size: 42px; margin-bottom: 5px;">📦</div>
+      <h2 style="color: var(--tech-green-dark); margin: 0 0 5px 0;">تم تجهيز حزمة مشروعكم بنجاح!</h2>
+      <p style="font-size: 13px; color: var(--slate-muted);">تم ربط مساحة العمل الرسمية الخاصة بفريقكم وتثبيت كافة القيود المعتمدة.</p>
+
+      <div class="team-badge-box">
+        <div style="font-size: 13px; color: var(--slate-muted);">كود الفريق الرسمي: <strong style="color: var(--jordan-red); font-size: 17px;" id="out_code">AED1101</strong></div>
+        <div style="font-size: 15px; font-weight: bold; margin-top: 5px;" id="out_team_name">اسم الفريق</div>
+        <div style="font-size: 13px; color: var(--slate-muted); margin-top: 2px;" id="out_school">مدرسة ...</div>
+        <div style="font-size: 13px; color: var(--slate-muted);" id="out_track">المسار: ...</div>
+      </div>
+
+      <button type="button" class="btn" style="background: var(--jordan-red); color: white;" id="btn_redownload" onclick="triggerZipDownload()">
+        تحميل الحزمة المخصصة للفريق (ZIP) مرة أخرى
+      </button>
+
+      <div style="background: #F0FDF4; border: 1px solid #86EFAC; border-radius: var(--card-radius); padding: 18px; margin-top: 20px; text-align: right; font-size: 13px; color: #166534; line-height: 1.8;">
+        <strong>تعليمات البدء بالعمل الهندسي:</strong><br>
+        1. قم بفك ضغط الملف (Extract All) على جهازكم في مجلد مخصص.<br>
+        2. افتح ملف <code>dashboard.html</code> لبدء توثيق محفظة TPP.<br>
+        3. كافة الفصول مجهزة بصفحات فارغة تماماً (0%) وجاهزة لبدء إبداعكم دون أي نماذج مسبقة.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  const SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbwJu3gSbBIo6CsZ0RgyuXcQe7PgrSaOj0SmNUljLTexjGIeOAMwiPqF9YtyPdQlGyza/exec";
+  
+  let generatedZipBlob = null;
+  let teamFileName = "TPP_Team_Workspace.zip";
+  let systemLinks = {};
+
+  // 1. ساعة الأردن الحية وتحميل الروابط السحابية
+  function updateClock() {
+    const now = new Date();
+    const opts = { timeZone: "Asia/Amman", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
+    document.getElementById('liveJordanClock').innerText = now.toLocaleTimeString("en-GB", opts);
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const res = await fetch(SCRIPT_API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "GET_SYSTEM_LINKS" })
+      });
+      const data = await res.json();
+      if (data.success && data.links) {
+        systemLinks = data.links;
+      }
+    } catch(e) {}
+  });
+
+  // 2. معالجة زر Enter
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && document.getElementById('loginView').style.display !== 'none') {
+      authenticateAndGeneratePackage();
+    }
+  });
+
+  // 3. التحقق وتوليد الحزمة النظيفة المخصصة (Client-Side Dynamic Provisioning)
+  async function authenticateAndGeneratePackage() {
+    const u = document.getElementById('team_username').value.trim();
+    const p = document.getElementById('team_password').value.trim();
+    const btn = document.getElementById('btn_login');
+    const toast = document.getElementById('toast_msg');
+    toast.style.display = 'none';
+
+    if (!u || !p) {
+      toast.innerText = "يرجى كتابة اسم المستخدم وكلمة المرور الخاصة بالفريق.";
+      toast.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = "جاري التحقق وتوليد حزمة المشروع المخصصة...";
+
+    try {
+      const res = await fetch(SCRIPT_API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "AUTH_STUDENT_LOGIN",
+          credentials: { username: u, password: p }
+        })
+      });
+      const data = await res.json();
+
+      if (data.success && data.team_session) {
+        const session = data.team_session;
+        const projectData = data.project_data || {};
+
+        document.getElementById('out_code').innerText = session.team_code;
+        document.getElementById('out_team_name').innerText = session.team_name;
+        document.getElementById('out_school').innerText = `${projectData.school_name || ''} | ${projectData.directorate_name || ''}`;
+        document.getElementById('out_track').innerText = `المسار: ${projectData.track_name || 'الابتكار والروبوت'}`;
+
+        // 1. هيكل بيانات المشروع النقي الخالي من أي نصوص وهمية (0% إنجاز)
+        const cleanProjectJson = {
+          team_id: session.team_id,
+          team_code: session.team_code,
+          team_name: session.team_name,
+          school_name: projectData.school_name || "",
+          directorate_name: projectData.directorate_name || "",
+          directorate_code: projectData.directorate_code || "",
+          governorate: projectData.governorate || "",
+          region: projectData.region || "",
+          district: projectData.district || "",
+          school_type: projectData.school_type || "حكومي",
+          track_name: projectData.track_name || "",
+          project_title: projectData.project_title || "",
+          supervisor: projectData.supervisor || {},
+          members: projectData.members || [],
+          shared_drive_link: session.shared_drive_link || "",
+          created_at: new Date().toISOString(),
+          
+          // الفصول الخمسة تبدأ فارغة تماماً
+          section_1: {
+            origin_problem: "",
+            challenges: [
+              { title: "", analysis: "", solution: "" },
+              { title: "", analysis: "", solution: "" },
+              { title: "", analysis: "", solution: "" }
+            ],
+            strategies: {
+              strat1: { name: "", pros: "", cons: "" },
+              strat2: { name: "", pros: "", cons: "" }
+            },
+            roadmap: {
+              statement: "",
+              pillars: [
+                { axis: "", reason: "" },
+                { axis: "", reason: "" },
+                { axis: "", reason: "" }
+              ]
+            }
+          },
+          section_2_experiments: [],
+          section_3_design: {
+            bom_items: [],
+            pins: [],
+            total_cost: "0.00 دينار"
+          },
+          section_4_innovation: {
+            algo_name: "",
+            algo_problem: "",
+            algo_code: "",
+            algo_logic: "",
+            fab_innovations: [],
+            ai_case_studies: []
+          },
+          section_5_identity: {
+            team_size: projectData.team_size || (projectData.members ? projectData.members.length.toString() : "3"),
+            cards: {},
+            footprints: {}
+          },
+          citations: []
+        };
+
+        // 2. تجميع ملفات الـ ZIP في الذاكرة عبر JSZip
+        const zip = new JSZip();
+        
+        // مجلد البيانات المركزي
+        const dataFolder = zip.folder("data");
+        dataFolder.file("project.json", JSON.stringify(cleanProjectJson, null, 2));
+        dataFolder.file("session.json", JSON.stringify(session, null, 2));
+
+        // مجلد الوسائط فارغ للصور المحلية
+        zip.folder("media");
+
+        // وثيقة الإرشادات الرسمية
+        zip.file("دليل_البدء_السريع.txt", 
+          `المملكة الأردنية الهاشمية - وزارة التربية والتعليم وتنمية الموارد البشرية\n` +
+          `البطولة الوطنية للابتكار والروبوت 2026 - 2027\n\n` +
+          `فريق: ${session.team_name} (${session.team_code})\n` +
+          `المدرسة: ${projectData.school_name}\n` +
+          `المديرية: ${projectData.directorate_name}\n\n` +
+          `مرحباً بكم في مساحة عمل محفظة المشروع التقنية (TPP).\n` +
+          `يرجى تشغيل ملف dashboard.html لبدء توثيق فصول المشروع الخمسة.`
+        );
+
+        // بناء الملف المضغوط وإطلاقه
+        generatedZipBlob = await zip.generateAsync({ type: "blob" });
+        teamFileName = `TPP_${session.team_code}_${session.team_name.replace(/\s+/g, '_')}_2026_2027.zip`;
+
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('successView').style.display = 'block';
+        triggerZipDownload();
+
+      } else {
+        toast.innerText = data.message || "بيانات الدخول غير صحيحة.";
+        toast.style.display = 'block';
+      }
+    } catch (err) {
+      toast.innerText = "حدث خطأ أثناء الاتصال بالسحابة المركزية.";
+      toast.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "فتح وتوليد حزمة المشروع الخاصة بالفريق ←";
+    }
+  }
+
+  function triggerZipDownload() {
+    if (!generatedZipBlob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(generatedZipBlob);
+    a.download = teamFileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+</script>
+</body>
+</html>
