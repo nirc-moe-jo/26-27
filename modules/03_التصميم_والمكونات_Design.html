@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>القسم الثالث: التصميم والمكونات | محفظة TPP 2026 - 2027</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --moe-red: #8B0000;
+      --moe-gold: #D4AF37;
+      --moe-gold-dark: #B45309;
+      --emerald-green: #047857;
+      --emerald-light: #10B981;
+      --tech-blue: #2563EB;
+      --dark-slate: #0F172A;
+      --navy-deep: #1E293B;
+      --slate-subtle: #64748B;
+      --border-card: #E2E8F0;
+      
+      --glass-surface: rgba(255, 255, 255, 0.88);
+      --glass-card: rgba(255, 255, 255, 0.95);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.9);
+      --card-radius: 20px;
+      --pill-radius: 50px;
+      --glow-soft: 0 10px 30px rgba(15, 23, 42, 0.04);
+    }
+
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; -webkit-font-smoothing: antialiased; }
+    
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #F8FAFC;
+      color: var(--dark-slate);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* هالة محيطية هادئة */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -120px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(4, 120, 87, 0.12) 0%, rgba(212, 175, 55, 0.08) 50%, transparent 75%);
+      filter: blur(80px);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    /* الترويسة والتنقل */
+    .section-navbar {
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      border: var(--glass-border);
+      box-shadow: var(--glow-soft);
+      border-radius: var(--card-radius);
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      border-top: 4px solid var(--emerald-green);
+    }
+
+    .nav-title h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy-deep);
+    }
+    .nav-title span {
+      font-size: 12px;
+      color: var(--slate-subtle);
+      font-weight: 700;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .save-status-pill {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--slate-subtle);
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: var(--pill-radius);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-save-master {
+      background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+    .btn-save-master:hover { transform: translateY(-1px); }
+    .btn-back { background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--navy-deep); }
+    .btn-add-bom {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: white;
+      font-size: 13px;
+      padding: 8px 18px;
+    }
+    .btn-delete-row {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    /* البطاقات التخصصية */
+    .content-card {
+      background: var(--glass-card);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid var(--border-card);
+      box-shadow: var(--glow-soft);
+      border-radius: var(--card-radius);
+      padding: 26px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .card-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-headline h2 {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 900;
+      color: var(--navy-deep);
+    }
+
+    /* صندوق الإرشاد التوجيهي لدليل التحكيم */
+    .official-guide-box {
+      background: #FFFDF5;
+      border-right: 4px solid var(--moe-gold);
+      border: 1px solid #FDE68A;
+      border-right-width: 4px;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .official-guide-box strong { font-weight: 900; }
+
+    /* جدول المكونات BOM */
+    .bom-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+    .bom-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+    .bom-table th {
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 12px 10px;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      border-left: 1px solid #334155;
+    }
+    .bom-table th:last-child { border-left: none; }
+    .bom-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #E2E8F0;
+      border-left: 1px solid #E2E8F0;
+      vertical-align: top;
+      background: #FFFFFF;
+    }
+    .bom-table td:last-child { border-left: none; }
+    .bom-table tr:last-child td { border-bottom: none; }
+    
+    .bom-table input, .bom-table textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .bom-table input:focus, .bom-table textarea:focus {
+      border-color: var(--emerald-green);
+      box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.12);
+    }
+
+    /* حاسبة الميزانية */
+    .total-budget-bar {
+      margin-top: 16px;
+      background: #F0FDF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 12px;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .total-cost-badge {
+      font-size: 18px;
+      font-weight: 900;
+      color: #166534;
+      background: #DCFCE7;
+      padding: 4px 16px;
+      border-radius: var(--pill-radius);
+    }
+
+    /* لوحة الصورة التفاعلية وإسقاط الأرقام */
+    .pin-diagram-board {
+      position: relative;
+      border: 2px dashed #CBD5E1;
+      border-radius: 14px;
+      background: #FAFAFA;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: crosshair;
+      margin-top: 14px;
+      user-select: none;
+    }
+    .pin-diagram-board:hover { border-color: var(--emerald-green); }
+    .robot-master-img { max-width: 100%; max-height: 520px; display: none; }
+    
+    .interactive-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: var(--moe-red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      border: 2.5px solid white;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 10;
+    }
+    .interactive-pin:hover {
+      transform: translate(-50%, -50%) scale(1.25);
+      background: #000000;
+    }
+
+    /* شبكة التطور البصري للتصميم */
+    .evolution-stage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .evolution-card-tile {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .evolution-card-tile:hover {
+      border-color: var(--emerald-green);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .evo-preview-box {
+      border: 2px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 12px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #F8FAFC;
+      margin: 10px 0;
+    }
+    .evo-preview-box:hover { background: #ECFDF5; border-color: var(--emerald-green); }
+    .evo-img-tag { max-width: 100%; max-height: 140px; border-radius: 8px; display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- الترويسة والتنقل -->
+    <header class="section-navbar">
+      <div class="nav-title">
+        <h1>القسم الثالث: التصميم والمكونات (BOM & Diagrams)</h1>
+        <span>البطولة الوطنية للابتكار والروبوت 2026 - 2027</span>
+      </div>
+
+      <div class="nav-actions">
+        <span class="save-status-pill" id="liveSavePill">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></span>
+          <span id="saveStatusText">محفوظ في مساحة العمل ✓</span>
+        </span>
+        <a href="../لوحة_التحكم_الرئيسية_Dashboard.html" class="btn btn-back">← قمرة القيادة</a>
+        <button class="btn btn-save-master" onclick="commitAndSyncSection()">حفظ وتحديث المنظومة المركزية</button>
+      </div>
+    </header>
+
+    <!-- 1. جدول المكونات التفصيلي BOM -->
+    <section class="content-card">
+      <div class="card-headline">
+        <h2>1. جدول المكونات التفصيلي (Bill of Materials - BOM)</h2>
+        <button class="btn btn-add-bom" onclick="addNewBomRow()">+ إضافة مكون جديد</button>
+      </div>
+
+      <div class="official-guide-box">
+        💡 <strong>إرشاد دليل التحكيم الرسمي:</strong> اذكروا كافة المكونات الميكانيكية والإلكترونية المستخدمة في بناء المشروع. كونوا دقيقين جداً في تحديد النوع والموديل مع كتابة التبرير الهندسي لاختيار كل قطعة وربطها بالتحديات، مع تدوين السعر بالدينار وخطة التطوير المستقبلية [47-49].
+      </div>
+
+      <div class="bom-table-wrap">
+        <table class="bom-table" id="bomTable">
+          <thead>
+            <tr>
+              <th style="width: 5%;">#</th>
+              <th style="width: 20%;">المكون الرئيسي (الاسم العام)</th>
+              <th style="width: 20%;">ما هو النوع والإصدار (الموديل)</th>
+              <th style="width: 25%;">لماذا اخترناه؟ (التبرير الهندسي)</th>
+              <th style="width: 12%;">السعر (د.أ)</th>
+              <th style="width: 13%;">إمكانية التطوير</th>
+              <th style="width: 5%;">حذف</th>
+            </tr>
+          </thead>
+          <tbody id="bomTbody"></tbody>
+        </table>
+      </div>
+
+      <div class="total-budget-bar">
+        <div style="font-size: 14px; font-weight: 800; color: #166534;">
+          💰 التكلفة الإجمالية التقديرية لمكونات المشروع:
+        </div>
+        <div class="total-cost-badge" id="totalCostDisplay">0.00 د.أ</div>
+      </div>
+    </section>
+
+    <!-- 2. النموذج النهائي للمشروع والمخطط التفاعلي المرقم -->
+    <section class="content-card">
+      <div class="card-headline">
+        <h2>2. النموذج النهائي للمشروع (المخطط التفاعلي المرقم)</h2>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn" style="background: #2563EB; color: white;" onclick="document.getElementById('robot_img_file').click()">📷 رفع صورة النموذج المكتمل</button>
+          <button class="btn btn-back" onclick="clearAllPins()">🗑️ مسح كافة الأرقام</button>
+          <input type="file" id="robot_img_file" accept="image/*" style="display: none;" onchange="handleMasterRobotImage(this)">
+        </div>
+      </div>
+
+      <div class="official-guide-box">
+        💡 <strong>إرشاد دليل التحكيم الرسمي:</strong> حان الوقت لعرض تحفتكم الفنية! ارفعوا صورة واضحة ومكتملة لمجسمكم النهائي، ثم <strong>انقروا مباشرة على أي جزء في الصورة لإسقاط رقم المكون (1، 2، 3...)</strong> ليرتبط تلقائياً بنفس تسلسل جدول المكونات السابق [50-51].
+      </div>
+
+      <div class="pin-diagram-board" id="pinCanvasBoard" onclick="dropPinOnCanvas(event)">
+        <span id="pin_placeholder_txt" style="color: var(--slate-subtle); font-size: 13px; font-weight: 700;">
+          📷 الرجاء رفع صورة المجسم النهائي أولاً لتفعيل أداة إسقاط الأرقام التفاعلية
+        </span>
+        <img id="masterRobotView" class="robot-master-img" alt="النموذج النهائي">
+      </div>
+    </section>
+
+    <!-- 3. مراحل تطور التصميم البصري -->
+    <section class="content-card">
+      <div class="card-headline">
+        <h2>3. مراحل تطور التصميم (Visual Design Evolution)</h2>
+      </div>
+
+      <div class="official-guide-box">
+        💡 <strong>إرشاد دليل التحكيم الرسمي:</strong> الصورة بألف كلمة! رووا قصة تطور مشروعكم بصرياً عبر تسلسل زمني من النموذج الأولي البسيط إلى التصميم النهائي المكتمل عبر 4 مراحل هندسية [52-53].
+      </div>
+
+      <div class="evolution-stage-grid">
+        
+        <!-- مرحلة 1 -->
+        <div class="evolution-card-tile">
+          <strong style="color: var(--moe-red); font-size: 14px;">1. النموذج الأولي (النسخة 1)</strong>
+          <div class="evo-preview-box" onclick="document.getElementById('evo_file_1').click()">
+            <span id="evo_lbl_1" style="font-size: 12px; color: var(--slate-subtle);">📷 رفع صورة التجربة الأولى</span>
+            <input type="file" id="evo_file_1" accept="image/*" style="display: none;" onchange="handleEvoImage(1, this)">
+            <img id="evo_prev_1" class="evo-img-tag" alt="المرحلة 1">
+          </div>
+          <input type="text" id="evo_note_1" placeholder="ملاحظة التطوير الأولى..." style="margin-bottom: 0; font-size: 12px;">
+        </div>
+
+        <!-- مرحلة 2 -->
+        <div class="evolution-card-tile">
+          <strong style="color: #1D4ED8; font-size: 14px;">2. التعديل الثاني (النسخة 2)</strong>
+          <div class="evo-preview-box" onclick="document.getElementById('evo_file_2').click()">
+            <span id="evo_lbl_2" style="font-size: 12px; color: var(--slate-subtle);">📷 رفع صورة التجربة الثانية</span>
+            <input type="file" id="evo_file_2" accept="image/*" style="display: none;" onchange="handleEvoImage(2, this)">
+            <img id="evo_prev_2" class="evo-img-tag" alt="المرحلة 2">
+          </div>
+          <input type="text" id="evo_note_2" placeholder="ملاحظة التعديل الثاني..." style="margin-bottom: 0; font-size: 12px;">
+        </div>
+
+        <!-- مرحلة 3 -->
+        <div class="evolution-card-tile">
+          <strong style="color: var(--moe-gold-dark); font-size: 14px;">3. التحسين الثالث (النسخة 3)</strong>
+          <div class="evo-preview-box" onclick="document.getElementById('evo_file_3').click()">
+            <span id="evo_lbl_3" style="font-size: 12px; color: var(--slate-subtle);">📷 رفع صورة التجربة الثالثة</span>
+            <input type="file" id="evo_file_3" accept="image/*" style="display: none;" onchange="handleEvoImage(3, this)">
+            <img id="evo_prev_3" class="evo-img-tag" alt="المرحلة 3">
+          </div>
+          <input type="text" id="evo_note_3" placeholder="ملاحظة التحسين الثالث..." style="margin-bottom: 0; font-size: 12px;">
+        </div>
+
+        <!-- مرحلة 4 -->
+        <div class="evolution-card-tile">
+          <strong style="color: #047857; font-size: 14px;">4. التصميم المكتمل (النسخة 4)</strong>
+          <div class="evo-preview-box" onclick="document.getElementById('evo_file_4').click()">
+            <span id="evo_lbl_4" style="font-size: 12px; color: var(--slate-subtle);">📷 رفع صورة النسخة النهائية</span>
+            <input type="file" id="evo_file_4" accept="image/*" style="display: none;" onchange="handleEvoImage(4, this)">
+            <img id="evo_prev_4" class="evo-img-tag" alt="المرحلة 4">
+          </div>
+          <input type="text" id="evo_note_4" placeholder="ملاحظة التصميم النهائي..." style="margin-bottom: 0; font-size: 12px;">
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // الرابط المعتمد لمحرك المحفظة السحابي (يُستدعى بصمت تام)
+    const PORTFOLIO_ENGINE_URL = "https://script.google.com/macros/s/AKfycbwzHHkdguGJO4cEHhvHTMGmVNAxvmvAV69rKcVmKhvE5W-2_yJhUwtHMxcTmEjIYyov/exec";
+
+    let autoSaveTimer = null;
+
+    // مصفوفة قائمة المكونات BOM
+    let bomItemsList = [
+      { id: 1, name: "", model: "", reason: "", price: 0, upgrade: "" }
+    ];
+
+    // مصفوفة النقاط المرقمة على المخطط
+    let droppedPinsList = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreDesignSectionData();
+      renderBomTableRows();
+      renderPinsOnBoard();
+      attachAutoSaveListener();
+    });
+
+    // 1. بناء وعرض صفوف جدول المكونات BOM
+    function renderBomTableRows() {
+      const tbody = document.getElementById('bomTbody');
+      tbody.innerHTML = '';
+      let totalBudget = 0;
+
+      bomItemsList.forEach((item, idx) => {
+        const itemPrice = parseFloat(item.price) || 0;
+        totalBudget += itemPrice;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center; font-weight: 900; background: #F8FAFC; color: var(--navy-deep);">${idx + 1}</td>
+          <td><input type="text" value="${item.name || ''}" placeholder="اسم القطعة العام..." oninput="updateBomField(${idx}, 'name', this.value)"></td>
+          <td><input type="text" value="${item.model || ''}" placeholder="النوع ورقم الموديل..." oninput="updateBomField(${idx}, 'model', this.value)"></td>
+          <td><textarea rows="2" placeholder="التبرير الهندسي المرتبط بالتحدي..." oninput="updateBomField(${idx}, 'reason', this.value)">${item.reason || ''}</textarea></td>
+          <td><input type="number" step="0.25" min="0" value="${item.price || ''}" placeholder="0.00" oninput="updateBomPrice(${idx}, this.value)" style="text-align: center; font-weight: 800;"></td>
+          <td><input type="text" value="${item.upgrade || ''}" placeholder="إمكانية التطوير..." oninput="updateBomField(${idx}, 'upgrade', this.value)"></td>
+          <td style="text-align: center;">
+            ${bomItemsList.length > 1 ? `<button class="btn-delete-row" onclick="removeBomRow(${idx})">🗑️</button>` : ''}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('totalCostDisplay').innerText = totalBudget.toFixed(2) + " د.أ";
+    }
+
+    function addNewBomRow() {
+      bomItemsList.push({ id: bomItemsList.length + 1, name: "", model: "", reason: "", price: 0, upgrade: "" });
+      renderBomTableRows();
+      triggerAutoSave();
+    }
+
+    function removeBomRow(idx) {
+      if (confirm(`هل أنتم متأكدون من حذف المكون رقم #${idx + 1}؟`)) {
+        bomItemsList.splice(idx, 1);
+        renderBomTableRows();
+        triggerAutoSave();
+      }
+    }
+
+    function updateBomField(idx, key, val) {
+      bomItemsList[idx][key] = val;
+    }
+
+    function updateBomPrice(idx, val) {
+      bomItemsList[idx].price = parseFloat(val) || 0;
+      renderBomTableRows();
+      triggerAutoSave();
+    }
+
+    // 2. أداة إسقاط الأرقام التفاعلية على صورة الروبوت النهائية
+    function handleMasterRobotImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById('masterRobotView');
+          img.src = e.target.result;
+          img.style.display = 'block';
+          document.getElementById('pin_placeholder_txt').style.display = 'none';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function dropPinOnCanvas(e) {
+      const img = document.getElementById('masterRobotView');
+      if (img.style.display === 'none' || !img.src) return;
+
+      const rect = img.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      // التأكد أن النقر تم داخل أبعاد الصورة الفعلية
+      if (clickX < 0 || clickX > rect.width || clickY < 0 || clickY > rect.height) return;
+
+      const xPercent = (clickX / rect.width) * 100;
+      const yPercent = (clickY / rect.height) * 100;
+
+      const pinNumber = droppedPinsList.length + 1;
+      const linkedComponent = bomItemsList[pinNumber - 1] ? bomItemsList[pinNumber - 1].name : `مكون #${pinNumber}`;
+
+      droppedPinsList.push({
+        num: pinNumber,
+        x: xPercent,
+        y: yPercent,
+        title: linkedComponent
+      });
+
+      renderPinsOnBoard();
+      triggerAutoSave();
+    }
+
+    function renderPinsOnBoard() {
+      // إزالة النقاط القديمة وإعادة الرسم بنسب مئوية منضبطة
+      document.querySelectorAll('.interactive-pin').forEach(p => p.remove());
+      const board = document.getElementById('pinCanvasBoard');
+
+      droppedPinsList.forEach(p => {
+        const pinDiv = document.createElement('div');
+        pinDiv.className = 'interactive-pin';
+        pinDiv.style.left = p.x + '%';
+        pinDiv.style.top = p.y + '%';
+        pinDiv.innerText = p.num;
+        pinDiv.title = `المكون (${p.num}): ${p.title}`;
+        board.appendChild(pinDiv);
+      });
+    }
+
+    function clearAllPins() {
+      if (confirm("هل تودون مسح كافة الأرقام المسقطة على الصورة؟")) {
+        droppedPinsList = [];
+        renderPinsOnBoard();
+        triggerAutoSave();
+      }
+    }
+
+    // 3. معالجة صور التطور البصري الأربعة
+    function handleEvoImage(stageNum, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById(`evo_prev_${stageNum}`);
+          img.src = e.target.result;
+          img.style.display = 'block';
+          document.getElementById(`evo_lbl_${stageNum}`).style.display = 'none';
+          triggerAutoSave();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // 4. الحفظ التلقائي الصامت
+    function attachAutoSaveListener() {
+      document.addEventListener('input', triggerAutoSave);
+    }
+
+    function triggerAutoSave() {
+      const pill = document.getElementById('liveSavePill');
+      const text = document.getElementById('saveStatusText');
+      pill.style.background = "#FEF3C7";
+      pill.style.color = "#92400E";
+      text.innerText = "جاري الحفظ تلقائياً...";
+
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        saveLocally();
+        pill.style.background = "#DCFCE7";
+        pill.style.color = "#166534";
+        text.innerText = "محفوظ في مساحة العمل ✓";
+      }, 1200);
+    }
+
+    function collectSection3Payload() {
+      return {
+        bom_items: bomItemsList,
+        pins: droppedPinsList,
+        total_cost: document.getElementById('totalCostDisplay').innerText,
+        evolution_notes: {
+          note_1: document.getElementById('evo_note_1').value,
+          note_2: document.getElementById('evo_note_2').value,
+          note_3: document.getElementById('evo_note_3').value,
+          note_4: document.getElementById('evo_note_4').value
+        },
+        last_updated: new Date().toISOString()
+      };
+    }
+
+    function saveLocally() {
+      const payload = collectSection3Payload();
+      localStorage.setItem('TPP_SECTION_3_DATA', JSON.stringify(payload));
+    }
+
+    function restoreDesignSectionData() {
+      const saved = localStorage.getItem('TPP_SECTION_3_DATA');
+      if (!saved) return;
+      try {
+        const p = JSON.parse(saved);
+        if (Array.isArray(p.bom_items) && p.bom_items.length > 0) {
+          bomItemsList = p.bom_items;
+        }
+        if (Array.isArray(p.pins)) {
+          droppedPinsList = p.pins;
+        }
+        if (p.evolution_notes) {
+          document.getElementById('evo_note_1').value = p.evolution_notes.note_1 || '';
+          document.getElementById('evo_note_2').value = p.evolution_notes.note_2 || '';
+          document.getElementById('evo_note_3').value = p.evolution_notes.note_3 || '';
+          document.getElementById('evo_note_4').value = p.evolution_notes.note_4 || '';
+        }
+      } catch(e) {}
+    }
+
+    // 5. المزامنة الرسمية مع المنظومة المركزية
+    async function commitAndSyncSection() {
+      saveLocally();
+      const payloadData = collectSection3Payload();
+      const rawSession = localStorage.getItem('TPP_TEAM_SESSION');
+      const session = rawSession ? JSON.parse(rawSession) : { team_id: "LOCAL_DEV", team_code: "AED1101" };
+
+      try {
+        const res = await fetch(PORTFOLIO_ENGINE_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "SYNC_TPP_MODULE",
+            payload: {
+              team_id: session.team_id,
+              team_code: session.team_code,
+              section_name: "section_3",
+              section_data: payloadData
+            }
+          })
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert("✅ تم حفظ وتوثيق قائمة المكونات والتصميم في المنظومة المركزية بنجاح!");
+        } else {
+          alert("تم الحفظ في مساحة عملك محلياً بنجاح.");
+        }
+      } catch(e) {
+        alert("✅ تم الحفظ في مساحة عملك المحلية بأمان.");
+      }
+    }
+  </script>
+</body>
+</html>
