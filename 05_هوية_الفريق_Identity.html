@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>القسم الخامس: هوية الفريق وبصمة الأثر | محفظة TPP</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --moe-red: #8B0000;
+      --moe-crimson: #DC2626;
+      --moe-gold: #D4AF37;
+      --moe-gold-dark: #B45309;
+      --emerald-green: #047857;
+      --tech-blue: #2563EB;
+      --sunset-rose: #E11D48;
+      --dark-slate: #0F172A;
+      --navy-deep: #1E293B;
+      --slate-subtle: #64748B;
+      --border-card: #E2E8F0;
+      
+      --glass-surface: rgba(255, 255, 255, 0.88);
+      --glass-card: rgba(255, 255, 255, 0.95);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.9);
+      --card-radius: 20px;
+      --pill-radius: 50px;
+      --glow-soft: 0 10px 30px rgba(15, 23, 42, 0.04);
+    }
+
+    * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; -webkit-font-smoothing: antialiased; }
+    
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #F8FAFC;
+      color: var(--dark-slate);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* هالة محيطية دافئة */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -120px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(225, 29, 72, 0.10) 0%, rgba(212, 175, 55, 0.08) 50%, transparent 75%);
+      filter: blur(80px);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    /* الترويسة والتنقل */
+    .section-navbar {
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      border: var(--glass-border);
+      box-shadow: var(--glow-soft);
+      border-radius: var(--card-radius);
+      padding: 16px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      border-top: 4px solid var(--sunset-rose);
+    }
+
+    .nav-title h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy-deep);
+    }
+    .nav-title span {
+      font-size: 12px;
+      color: var(--slate-subtle);
+      font-weight: 700;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .save-status-pill {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 6px 14px;
+      border-radius: var(--pill-radius);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--slate-subtle);
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: var(--pill-radius);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-save-master {
+      background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+    .btn-save-master:hover { transform: translateY(-1px); }
+    .btn-back { background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--navy-deep); }
+
+    /* البطاقات التخصصية */
+    .content-card {
+      background: var(--glass-card);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid var(--border-card);
+      box-shadow: var(--glow-soft);
+      border-radius: var(--card-radius);
+      padding: 26px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .card-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-headline h2 {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 900;
+      color: var(--navy-deep);
+    }
+
+    /* صندوق الإرشاد التوجيهي لدليل التحكيم */
+    .official-guide-box {
+      background: #FFFDF5;
+      border-right: 4px solid var(--moe-gold);
+      border: 1px solid #FDE68A;
+      border-right-width: 4px;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .official-guide-box strong { font-weight: 900; }
+
+    /* شبكة بطاقات التعريف الموحدة */
+    .profile-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      margin-top: 14px;
+    }
+
+    .member-profile-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .member-profile-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .member-profile-card.supervisor-tier {
+      border-top: 5px solid var(--moe-gold);
+      background: #FFFDF7;
+    }
+    .member-profile-card.student-tier {
+      border-top: 5px solid var(--moe-red);
+    }
+
+    /* دائرة الصورة الشخصية */
+    .avatar-upload-circle {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      border: 3px solid #E2E8F0;
+      margin: 0 auto 12px auto;
+      overflow: hidden;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .avatar-upload-circle:hover {
+      border-color: var(--moe-red);
+      transform: scale(1.03);
+    }
+    .avatar-img-view {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* حقول الإدخال */
+    input[type="text"], input[type="date"], textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--dark-slate);
+      background: #FFFFFF;
+      outline: none;
+      transition: all 0.2s ease;
+      margin-bottom: 10px;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--sunset-rose);
+      box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+    }
+
+    /* أزرار التبويبات لبصمة العضو */
+    .footprint-pills-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .footprint-tab-btn {
+      padding: 8px 20px;
+      border-radius: var(--pill-radius);
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--slate-subtle);
+      transition: all 0.2s ease;
+    }
+    .footprint-tab-btn.active {
+      background: var(--navy-deep);
+      color: white;
+      border-color: var(--navy-deep);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
+
+    .footprint-pane {
+      display: none;
+      animation: fadeInPane 0.3s ease-in-out;
+    }
+    .footprint-pane.active { display: block; }
+    @keyframes fadeInPane { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* صندوق الاقتباس الشخصي الذهبي */
+    .quote-statement-box {
+      background: #FFFDF5;
+      border: 1.5px dashed var(--moe-gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- الترويسة والتنقل -->
+    <header class="section-navbar">
+      <div class="nav-title">
+        <h1>القسم الخامس: من نحن؟ (هوية الفريق وبصمة الأثر)</h1>
+        <span>البطولة الوطنية للابتكار والروبوت 2026 - 2027</span>
+      </div>
+
+      <div class="nav-actions">
+        <span class="save-status-pill" id="liveSavePill">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></span>
+          <span id="saveStatusText">محفوظ في مساحة العمل ✓</span>
+        </span>
+        <a href="../لوحة_التحكم_الرئيسية_Dashboard.html" class="btn btn-back">← قمرة القيادة</a>
+        <button class="btn btn-save-master" onclick="commitAndSyncSection()">حفظ وتحديث المنظومة المركزية</button>
+      </div>
+    </header>
+
+    <!-- 1. بطاقات التعريف الموحدة بالفريق -->
+    <section class="content-card">
+      <div class="card-headline">
+        <h2>1. بطاقات التعريف الموحدة بأعضاء الفريق</h2>
+        <div style="font-size: 13px; color: var(--slate-subtle); display: flex; align-items: center; gap: 8px;">
+          <strong>هيكل الفريق المعتمد:</strong>
+          <select id="team_size_selector" onchange="adjustTeamSizeDisplay(this.value)" style="padding: 6px 12px; border-radius: 8px; border: 1.5px solid #CBD5E1; font-weight: 800; font-size: 13px;">
+            <option value="3">3 طلاب + المشرف الأكاديمي</option>
+            <option value="2">طالبين + المشرف الأكاديمي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="official-guide-box">
+        💡 <strong>إرشاد دليل التحكيم الرسمي:</strong> لكل مشروع ناجح فريق منظم! هذه الصفحة تعرف لجان التحكيم بأعضاء فريقكم المبدع. ضعوا صورة شخصية واضحة لكل عضو في الدائرة المخصصة مع تدوين الاسم الكامل والصف والمدرسة والمديرية. إذا كان فريقكم مكوناً من طالبين فقط، يتم استبعاد بيانات العضو الثالث ببساطة [74-75].
+      </div>
+
+      <div class="profile-cards-grid">
+        
+        <!-- بطاقة المشرف الأكاديمي -->
+        <div class="member-profile-card supervisor-tier">
+          <div class="avatar-upload-circle" onclick="document.getElementById('file_sup_avatar').click()">
+            <span id="lbl_sup_avatar" style="font-size: 11px; color: var(--slate-subtle);">📷 صورة المشرف</span>
+            <input type="file" id="file_sup_avatar" accept="image/*" style="display: none;" onchange="handleAvatarSlot('sup', this)">
+            <img id="prev_sup_avatar" class="avatar-img-view" alt="المشرف">
+          </div>
+          <strong style="color: var(--moe-gold-dark); font-size: 13.5px; display: block; margin-bottom: 6px;">المشرف الأكاديمي</strong>
+          <input type="text" id="card_sup_name" placeholder="الاسم الكامل للمشرف...">
+          <input type="text" id="card_sup_specialty" placeholder="التخصص (مثال: معلم فيزياء، مهندس)...">
+          <input type="text" id="card_sup_school" placeholder="اسم المدرسة...">
+          <input type="text" id="card_sup_directorate" placeholder="المديرية..." style="margin-bottom: 0;">
+        </div>
+
+        <!-- بطاقة الطالب الأول (قائد الفريق) -->
+        <div class="member-profile-card student-tier">
+          <div class="avatar-upload-circle" onclick="document.getElementById('file_st1_avatar').click()">
+            <span id="lbl_st1_avatar" style="font-size: 11px; color: var(--slate-subtle);">📷 صورة الطالب 1</span>
+            <input type="file" id="file_st1_avatar" accept="image/*" style="display: none;" onchange="handleAvatarSlot('st1', this)">
+            <img id="prev_st1_avatar" class="avatar-img-view" alt="الطالب الأول">
+          </div>
+          <strong style="color: var(--moe-red); font-size: 13.5px; display: block; margin-bottom: 6px;">الطالب الأول (قائد الفريق)</strong>
+          <input type="text" id="card_st1_name" placeholder="الاسم الكامل للطالب...">
+          <input type="text" id="card_st1_grade" placeholder="الصف الدراسي...">
+          <input type="text" id="card_st1_school" placeholder="اسم المدرسة...">
+          <input type="text" id="card_st1_directorate" placeholder="المديرية..." style="margin-bottom: 0;">
+        </div>
+
+        <!-- بطاقة الطالب الثاني -->
+        <div class="member-profile-card student-tier">
+          <div class="avatar-upload-circle" onclick="document.getElementById('file_st2_avatar').click()">
+            <span id="lbl_st2_avatar" style="font-size: 11px; color: var(--slate-subtle);">📷 صورة الطالب 2</span>
+            <input type="file" id="file_st2_avatar" accept="image/*" style="display: none;" onchange="handleAvatarSlot('st2', this)">
+            <img id="prev_st2_avatar" class="avatar-img-view" alt="الطالب الثاني">
+          </div>
+          <strong style="color: var(--moe-red); font-size: 13.5px; display: block; margin-bottom: 6px;">الطالب الثاني</strong>
+          <input type="text" id="card_st2_name" placeholder="الاسم الكامل للطالب...">
+          <input type="text" id="card_st2_grade" placeholder="الصف الدراسي...">
+          <input type="text" id="card_st2_school" placeholder="اسم المدرسة...">
+          <input type="text" id="card_st2_directorate" placeholder="المديرية..." style="margin-bottom: 0;">
+        </div>
+
+        <!-- بطاقة الطالب الثالث (تختفي في حال كان الفريق 2 فقط) -->
+        <div class="member-profile-card student-tier" id="box_student3_card">
+          <div class="avatar-upload-circle" onclick="document.getElementById('file_st3_avatar').click()">
+            <span id="lbl_st3_avatar" style="font-size: 11px; color: var(--slate-subtle);">📷 صورة الطالب 3</span>
+            <input type="file" id="file_st3_avatar" accept="image/*" style="display: none;" onchange="handleAvatarSlot('st3', this)">
+            <img id="prev_st3_avatar" class="avatar-img-view" alt="الطالب الثالث">
+          </div>
+          <strong style="color: var(--moe-red); font-size: 13.5px; display: block; margin-bottom: 6px;">الطالب الثالث</strong>
+          <input type="text" id="card_st3_name" placeholder="الاسم الكامل للطالب...">
+          <input type="text" id="card_st3_grade" placeholder="الصف الدراسي...">
+          <input type="text" id="card_st3_school" placeholder="اسم المدرسة...">
+          <input type="text" id="card_st3_directorate" placeholder="المديرية..." style="margin-bottom: 0;">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. بصمة المشرف وبصمة الأعضاء الفردية -->
+    <section class="content-card">
+      <div class="card-headline">
+        <h2>2. بصمة العضو والأثر القيادي (Individual Footprint & Leadership Impact)</h2>
+      </div>
+
+      <div class="official-guide-box">
+        💡 <strong>إرشاد دليل التحكيم الرسمي:</strong> المشروع ليس مجرد قطع وبرمجة، بل هو نتاج جهودكم وتطوركم الشخصي بفضل الله تعالى. هنا تبرزون بصمتكم الشخصية: حددوا دوركم الرئيسي بوضوح، الأثر المحدد الذي أحدث فرقاً في المشروع وتفتخرون به، وأهم درس مهارى ستأخذونه معكم للمستقبل، واقتباساً يلخص فلسفتكم في العمل [76-83].
+      </div>
+
+      <!-- أزرار تبديل البصمات -->
+      <div class="footprint-pills-bar">
+        <button class="footprint-tab-btn active" onclick="switchFootprintView('pane_sup_fp', this)">بصمة المشرف الأكاديمي 👨‍🏫</button>
+        <button class="footprint-tab-btn" onclick="switchFootprintView('pane_st1_fp', this)">بصمة الطالب الأول 👤</button>
+        <button class="footprint-tab-btn" onclick="switchFootprintView('pane_st2_fp', this)">بصمة الطالب الثاني 👤</button>
+        <button class="footprint-tab-btn" id="tab_btn_st3" onclick="switchFootprintView('pane_st3_fp', this)">بصمة الطالب الثالث 👤</button>
+      </div>
+
+      <!-- جناح بصمة المشرف -->
+      <div class="footprint-pane active" id="pane_sup_fp">
+        <h3 style="color: var(--moe-gold-dark); margin: 0 0 10px 0; font-size: 15px;">بصمة المشرف الأكاديمي</h3>
+        
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">تاريخ الانضمام للفريق:</label>
+        <input type="date" id="fp_sup_date" style="max-width: 260px;">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">مهمتي في الإشراف والتوجيه:</label>
+        <input type="text" id="fp_sup_role" placeholder="مثال: الإشراف المنهجي، التوجيه الهندسي، وتيسير متطلبات الاختبار...">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم أثر ودافع تركته في نفوس الطلبة والمشروع:</label>
+        <textarea rows="2" id="fp_sup_impact" placeholder="المساهمة المحددة التي أفتخر بها في مسار وتطور الفريق..."></textarea>
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم ما لمسته وتعلمته من هذه التجربة الإشرافية:</label>
+        <textarea rows="2" id="fp_sup_lesson" placeholder="الدرس التربوي والمهاري المستفاد..."></textarea>
+
+        <div class="quote-statement-box">
+          <label style="font-size: 12.5px; font-weight: 900; color: #92400E; display: block; margin-bottom: 4px;">
+            💬 كلمة المشرف ورسالته للفريق (اقتباس أو رسالة موجهة):
+          </label>
+          <input type="text" id="fp_sup_quote" placeholder="كلمة توجيهية أو اقتباس يلخص مسيرة الفريق..." style="background: #FFFFFF; margin-bottom: 0;">
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب الأول -->
+      <div class="footprint-pane" id="pane_st1_fp">
+        <h3 style="color: var(--moe-red); margin: 0 0 10px 0; font-size: 15px;">بصمة العضو (الطالب الأول - قائد الفريق)</h3>
+        
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">تاريخ الانضمام للفريق:</label>
+        <input type="date" id="fp_st1_date" style="max-width: 260px;">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">مهمتي الرئيسية في الفريق:</label>
+        <input type="text" id="fp_st1_role" placeholder="مثال: قيادة مصفوفة المشكلة وتصميم الهيكل الميكانيكي واختبار المحركات...">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم أثر تركته في المشروع وأفتخر به:</label>
+        <textarea rows="2" id="fp_st1_impact" placeholder="فكر في مساهمة محددة أحدثت فرقاً كبيراً في أداء الروبوت أو الحل المقترح..."></textarea>
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم ما تعلمته من هذه التجربة (التطور الشخصي والمهاري):</label>
+        <textarea rows="2" id="fp_st1_lesson" placeholder="مثال: تعلمت أن الفشل في محاولة ما ليس نهاية الطريق بل هو انطلاقة لتصميم أكثر كفاءة..."></textarea>
+
+        <div class="quote-statement-box">
+          <label style="font-size: 12.5px; font-weight: 900; color: #92400E; display: block; margin-bottom: 4px;">
+            💬 اقتباس شخصي أو قالوا عنه...:
+          </label>
+          <input type="text" id="fp_st1_quote" placeholder="جملة تلخص فلسفتك في العمل، أو ما قاله زملاؤك في الفريق عنك..." style="background: #FFFFFF; margin-bottom: 0;">
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب الثاني -->
+      <div class="footprint-pane" id="pane_st2_fp">
+        <h3 style="color: var(--moe-red); margin: 0 0 10px 0; font-size: 15px;">بصمة العضو (الطالب الثاني)</h3>
+        
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">تاريخ الانضمام للفريق:</label>
+        <input type="date" id="fp_st2_date" style="max-width: 260px;">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">مهمتي الرئيسية في الفريق:</label>
+        <input type="text" id="fp_st2_role" placeholder="مثال: برمجة الخوارزمية المحورية والتحكم بمعالجة إشارات المستشعرات...">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم أثر تركته في المشروع وأفتخر به:</label>
+        <textarea rows="2" id="fp_st2_impact" placeholder="المساهمة البرمجية أو التقنية التي صنعت الفارق..."></textarea>
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم ما تعلمته من هذه التجربة:</label>
+        <textarea rows="2" id="fp_st2_lesson" placeholder="المهارة التقنية أو الحياتية التي اكتسبتها..."></textarea>
+
+        <div class="quote-statement-box">
+          <label style="font-size: 12.5px; font-weight: 900; color: #92400E; display: block; margin-bottom: 4px;">
+            💬 اقتباس شخصي أو قالوا عنه...:
+          </label>
+          <input type="text" id="fp_st2_quote" placeholder="اقتباس يلخص رؤيتك أو شهادة زملائك..." style="background: #FFFFFF; margin-bottom: 0;">
+        </div>
+      </div>
+
+      <!-- جناح بصمة الطالب الثالث -->
+      <div class="footprint-pane" id="pane_st3_fp">
+        <h3 style="color: var(--moe-red); margin: 0 0 10px 0; font-size: 15px;">بصمة العضو (الطالب الثالث)</h3>
+        
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">تاريخ الانضمام للفريق:</label>
+        <input type="date" id="fp_st3_date" style="max-width: 260px;">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">مهمتي الرئيسية في الفريق:</label>
+        <input type="text" id="fp_st3_role" placeholder="مثال: التوثيق الهندسي، مصفوفة المكونات BOM، والدوائر الإلكترونية ومصادر الطاقة...">
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم أثر تركته في المشروع وأفتخر به:</label>
+        <textarea rows="2" id="fp_st3_impact" placeholder="المساهمة التي أحدثت فارقاً كبيراً في استقرار وموثوقية المشروع..."></textarea>
+
+        <label style="font-size: 12.5px; font-weight: 800; display: block; margin-bottom: 4px;">أهم ما تعلمته من هذه التجربة:</label>
+        <textarea rows="2" id="fp_st3_lesson" placeholder="الدرس والمهارة المستفادة..."></textarea>
+
+        <div class="quote-statement-box">
+          <label style="font-size: 12.5px; font-weight: 900; color: #92400E; display: block; margin-bottom: 4px;">
+            💬 اقتباس شخصي أو قالوا عنه...:
+          </label>
+          <input type="text" id="fp_st3_quote" placeholder="اقتباس شخصي..." style="background: #FFFFFF; margin-bottom: 0;">
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+    // الرابط المعتمد لمحرك المحفظة السحابي (يُستدعى بصمت تام)
+    const PORTFOLIO_ENGINE_URL = "https://script.google.com/macros/s/AKfycbwzHHkdguGJO4cEHhvHTMGmVNAxvmvAV69rKcVmKhvE5W-2_yJhUwtHMxcTmEjIYyov/exec";
+
+    let autoSaveTimer = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      prefillFromSessionAndStorage();
+      restoreSection5Data();
+      attachAutoSaveListener();
+    });
+
+    // 1. التعبئة التلقائية الذكية من بيانات تسجيل الفريق المعتمدة
+    function prefillFromSessionAndStorage() {
+      const rawProject = localStorage.getItem('TPP_PROJECT_DATA');
+      if (!rawProject) return;
+      try {
+        const p = JSON.parse(rawProject);
+        
+        // المشرف
+        if (p.supervisor) {
+          if (!document.getElementById('card_sup_name').value) document.getElementById('card_sup_name').value = p.supervisor.name || '';
+          if (!document.getElementById('card_sup_specialty').value) document.getElementById('card_sup_specialty').value = p.supervisor.major || '';
+        }
+        if (!document.getElementById('card_sup_school').value) document.getElementById('card_sup_school').value = p.school_name || '';
+        if (!document.getElementById('card_sup_directorate').value) document.getElementById('card_sup_directorate').value = p.directorate_name || '';
+
+        // الطلاب
+        if (Array.isArray(p.members)) {
+          if (p.members[0]) {
+            if (!document.getElementById('card_st1_name').value) document.getElementById('card_st1_name').value = p.members[0].name || '';
+            if (!document.getElementById('card_st1_grade').value) document.getElementById('card_st1_grade').value = p.members[0].grade || '';
+            if (!document.getElementById('card_st1_school').value) document.getElementById('card_st1_school').value = p.school_name || '';
+            if (!document.getElementById('card_st1_directorate').value) document.getElementById('card_st1_directorate').value = p.directorate_name || '';
+          }
+          if (p.members[1]) {
+            if (!document.getElementById('card_st2_name').value) document.getElementById('card_st2_name').value = p.members[1].name || '';
+            if (!document.getElementById('card_st2_grade').value) document.getElementById('card_st2_grade').value = p.members[1].grade || '';
+            if (!document.getElementById('card_st2_school').value) document.getElementById('card_st2_school').value = p.school_name || '';
+            if (!document.getElementById('card_st2_directorate').value) document.getElementById('card_st2_directorate').value = p.directorate_name || '';
+          }
+          if (p.members[2]) {
+            if (!document.getElementById('card_st3_name').value) document.getElementById('card_st3_name').value = p.members[2].name || '';
+            if (!document.getElementById('card_st3_grade').value) document.getElementById('card_st3_grade').value = p.members[2].grade || '';
+            if (!document.getElementById('card_st3_school').value) document.getElementById('card_st3_school').value = p.school_name || '';
+            if (!document.getElementById('card_st3_directorate').value) document.getElementById('card_st3_directorate').value = p.directorate_name || '';
+          }
+        }
+      } catch(e) {}
+    }
+
+    // 2. التحكم في حجم الفريق وإخفاء العضو الثالث إذا كان الفريق 2 فقط
+    function adjustTeamSizeDisplay(size) {
+      const card3 = document.getElementById('box_student3_card');
+      const tab3 = document.getElementById('tab_btn_st3');
+      if (size === "2") {
+        card3.style.display = 'none';
+        tab3.style.display = 'none';
+      } else {
+        card3.style.display = 'block';
+        tab3.style.display = 'inline-block';
+      }
+      triggerAutoSave();
+    }
+
+    // 3. تبديل أجنحة البصمات
+    function switchFootprintView(paneId, btn) {
+      document.querySelectorAll('.footprint-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.footprint-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(paneId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // 4. معالجة رفع الصور الشخصية دون إثقال الذاكرة
+    function handleAvatarSlot(key, input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById(`prev_${key}_avatar`);
+          img.src = e.target.result;
+          img.style.display = 'block';
+          document.getElementById(`lbl_${key}_avatar`).style.display = 'none';
+          triggerAutoSave();
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // 5. الحفظ التلقائي الصامت
+    function attachAutoSaveListener() {
+      document.addEventListener('input', triggerAutoSave);
+    }
+
+    function triggerAutoSave() {
+      const pill = document.getElementById('liveSavePill');
+      const text = document.getElementById('saveStatusText');
+      pill.style.background = "#FEF3C7";
+      pill.style.color = "#92400E";
+      text.innerText = "جاري الحفظ تلقائياً...";
+
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        saveLocally();
+        pill.style.background = "#DCFCE7";
+        pill.style.color = "#166534";
+        text.innerText = "محفوظ في مساحة العمل ✓";
+      }, 1200);
+    }
+
+    function collectSection5Payload() {
+      return {
+        team_size: document.getElementById('team_size_selector').value,
+        cards: {
+          supervisor: {
+            name: document.getElementById('card_sup_name').value,
+            specialty: document.getElementById('card_sup_specialty').value,
+            school: document.getElementById('card_sup_school').value,
+            directorate: document.getElementById('card_sup_directorate').value
+          },
+          student1: {
+            name: document.getElementById('card_st1_name').value,
+            grade: document.getElementById('card_st1_grade').value,
+            school: document.getElementById('card_st1_school').value,
+            directorate: document.getElementById('card_st1_directorate').value
+          },
+          student2: {
+            name: document.getElementById('card_st2_name').value,
+            grade: document.getElementById('card_st2_grade').value,
+            school: document.getElementById('card_st2_school').value,
+            directorate: document.getElementById('card_st2_directorate').value
+          },
+          student3: {
+            name: document.getElementById('card_st3_name').value,
+            grade: document.getElementById('card_st3_grade').value,
+            school: document.getElementById('card_st3_school').value,
+            directorate: document.getElementById('card_st3_directorate').value
+          }
+        },
+        footprints: {
+          supervisor: {
+            date: document.getElementById('fp_sup_date').value,
+            role: document.getElementById('fp_sup_role').value,
+            impact: document.getElementById('fp_sup_impact').value,
+            lesson: document.getElementById('fp_sup_lesson').value,
+            quote: document.getElementById('fp_sup_quote').value
+          },
+          student1: {
+            date: document.getElementById('fp_st1_date').value,
+            role: document.getElementById('fp_st1_role').value,
+            impact: document.getElementById('fp_st1_impact').value,
+            lesson: document.getElementById('fp_st1_lesson').value,
+            quote: document.getElementById('fp_st1_quote').value
+          },
+          student2: {
+            date: document.getElementById('fp_st2_date').value,
+            role: document.getElementById('fp_st2_role').value,
+            impact: document.getElementById('fp_st2_impact').value,
+            lesson: document.getElementById('fp_st2_lesson').value,
+            quote: document.getElementById('fp_st2_quote').value
+          },
+          student3: {
+            date: document.getElementById('fp_st3_date').value,
+            role: document.getElementById('fp_st3_role').value,
+            impact: document.getElementById('fp_st3_impact').value,
+            lesson: document.getElementById('fp_st3_lesson').value,
+            quote: document.getElementById('fp_st3_quote').value
+          }
+        },
+        last_updated: new Date().toISOString()
+      };
+    }
+
+    function saveLocally() {
+      const payload = collectSection5Payload();
+      localStorage.setItem('TPP_SECTION_5_DATA', JSON.stringify(payload));
+    }
+
+    function restoreSection5Data() {
+      const saved = localStorage.getItem('TPP_SECTION_5_DATA');
+      if (!saved) return;
+      try {
+        const d = JSON.parse(saved);
+        if (d.team_size) {
+          document.getElementById('team_size_selector').value = d.team_size;
+          adjustTeamSizeDisplay(d.team_size);
+        }
+        if (d.cards) {
+          if (d.cards.supervisor) {
+            document.getElementById('card_sup_name').value = d.cards.supervisor.name || '';
+            document.getElementById('card_sup_specialty').value = d.cards.supervisor.specialty || '';
+            document.getElementById('card_sup_school').value = d.cards.supervisor.school || '';
+            document.getElementById('card_sup_directorate').value = d.cards.supervisor.directorate || '';
+          }
+          if (d.cards.student1) {
+            document.getElementById('card_st1_name').value = d.cards.student1.name || '';
+            document.getElementById('card_st1_grade').value = d.cards.student1.grade || '';
+            document.getElementById('card_st1_school').value = d.cards.student1.school || '';
+            document.getElementById('card_st1_directorate').value = d.cards.student1.directorate || '';
+          }
+          if (d.cards.student2) {
+            document.getElementById('card_st2_name').value = d.cards.student2.name || '';
+            document.getElementById('card_st2_grade').value = d.cards.student2.grade || '';
+            document.getElementById('card_st2_school').value = d.cards.student2.school || '';
+            document.getElementById('card_st2_directorate').value = d.cards.student2.directorate || '';
+          }
+          if (d.cards.student3) {
+            document.getElementById('card_st3_name').value = d.cards.student3.name || '';
+            document.getElementById('card_st3_grade').value = d.cards.student3.grade || '';
+            document.getElementById('card_st3_school').value = d.cards.student3.school || '';
+            document.getElementById('card_st3_directorate').value = d.cards.student3.directorate || '';
+          }
+        }
+        if (d.footprints) {
+          if (d.footprints.supervisor) {
+            document.getElementById('fp_sup_date').value = d.footprints.supervisor.date || '';
+            document.getElementById('fp_sup_role').value = d.footprints.supervisor.role || '';
+            document.getElementById('fp_sup_impact').value = d.footprints.supervisor.impact || '';
+            document.getElementById('fp_sup_lesson').value = d.footprints.supervisor.lesson || '';
+            document.getElementById('fp_sup_quote').value = d.footprints.supervisor.quote || '';
+          }
+          if (d.footprints.student1) {
+            document.getElementById('fp_st1_date').value = d.footprints.student1.date || '';
+            document.getElementById('fp_st1_role').value = d.footprints.student1.role || '';
+            document.getElementById('fp_st1_impact').value = d.footprints.student1.impact || '';
+            document.getElementById('fp_st1_lesson').value = d.footprints.student1.lesson || '';
+            document.getElementById('fp_st1_quote').value = d.footprints.student1.quote || '';
+          }
+          if (d.footprints.student2) {
+            document.getElementById('fp_st2_date').value = d.footprints.student2.date || '';
+            document.getElementById('fp_st2_role').value = d.footprints.student2.role || '';
+            document.getElementById('fp_st2_impact').value = d.footprints.student2.impact || '';
+            document.getElementById('fp_st2_lesson').value = d.footprints.student2.lesson || '';
+            document.getElementById('fp_st2_quote').value = d.footprints.student2.quote || '';
+          }
+          if (d.footprints.student3) {
+            document.getElementById('fp_st3_date').value = d.footprints.student3.date || '';
+            document.getElementById('fp_st3_role').value = d.footprints.student3.role || '';
+            document.getElementById('fp_st3_impact').value = d.footprints.student3.impact || '';
+            document.getElementById('fp_st3_lesson').value = d.footprints.student3.lesson || '';
+            document.getElementById('fp_st3_quote').value = d.footprints.student3.quote || '';
+          }
+        }
+      } catch(e) {}
+    }
+
+    // 6. المزامنة الرسمية مع المنظومة المركزية
+    async function commitAndSyncSection() {
+      saveLocally();
+      const payloadData = collectSection5Payload();
+      const rawSession = localStorage.getItem('TPP_TEAM_SESSION');
+      const session = rawSession ? JSON.parse(rawSession) : { team_id: "LOCAL_DEV", team_code: "AED1101" };
+
+      try {
+        const res = await fetch(PORTFOLIO_ENGINE_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "SYNC_TPP_MODULE",
+            payload: {
+              team_id: session.team_id,
+              team_code: session.team_code,
+              section_name: "section_5",
+              section_data: payloadData
+            }
+          })
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert("✅ تم حفظ وتوثيق هوية الفريق وبصمات الأثر في المنظومة المركزية بنجاح!");
+        } else {
+          alert("تم الحفظ في مساحة عملك محلياً بنجاح.");
+        }
+      } catch(e) {
+        alert("✅ تم الحفظ في مساحة عملك المحلية بأمان.");
+      }
+    }
+  </script>
+</body>
+</html>
